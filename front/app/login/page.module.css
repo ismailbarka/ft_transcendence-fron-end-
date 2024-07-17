@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap');
+
+.Container {
+    display: flex;
+    height: 100vh;
+    .loginInput {
+        flex: 1;
+        background-color: #F8F0E5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @media screen and (max-width: 1080px) {
+            align-items: center;
+        }
+
+        padding: 86px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+
+        .title {
+            margin-bottom: 109px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            font-size: 30px;
+        }
+        .desc {
+            margin-bottom: 28px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            font-size: 36px;
+            @media screen and (max-width: 1080px) {
+                text-align: center;
+            }
+        }
+        .welcomeMsg {
+            color: #0000005b;
+            margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 445px;
+            @media screen and (max-width: 600px) {
+                width: 90%;
+            }
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            .input {
+                background-color: #EADBC8;
+                width: 445px;
+                height: 75px;
+                border-radius: 20px; 
+                border: 1px solid #C1BBBB;
+                padding-left: 39px;
+                padding-right: 39px;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 600;
+                font-size: 24px;
+                @media screen and (max-width: 600px) {
+                    width: 90%;
+                }  
+            }
+            .inputError {
+                background-color: rgba(247, 152, 152, 0.513);
+                width: 445px;
+                height: 75px;
+                border-radius: 20px; 
+                border: 1px solid #C1BBBB;
+                padding-left: 39px;
+                padding-right: 39px;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 600;
+                font-size: 24px;
+                @media screen and (max-width: 600px) {
+                    width: 90%;
+                }  
+            }
+            .errorMsgContainer{
+                height: 56px;
+            }
+            .errorMsg{
+                margin: 10px;
+                color: rgb(247, 152, 152);
+            }
+            .button {
+                background-color: #DAC0A3;
+                width: 129px;
+                height: 54px;
+                margin-bottom: 28px;
+                border: none;
+                border-radius: 20px; 
+                border: 1px solid #C1BBBB;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 600;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        }
+        .signUp{
+            color : 1900FF;
+        }
+    }
+    
+    .loginImage {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background-color: #DCCDAE;
+        @media screen and (max-width: 1080px) {
+            display: none;
+        }
+
+        .PlayerSigningInStyle{
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
