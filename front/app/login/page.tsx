@@ -12,10 +12,15 @@ const schema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters" })
 });
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
+type Errors ={
+  email: string;
+  password:string
+}
+
+const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errors, setErrors] = useState<Errors>({ email: "", password: "" });
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +38,21 @@ const Login = () => {
     console.log("Password:", password);
   };
 
+  const RenderField: React.FC<{ name: keyof Errors; value: string; setValue: React.Dispatch<React.SetStateAction<string>> }> = ({ name, value, setValue }) => (
+    <>
+      <input
+        className={errors[name] ? classes.inputError : classes.input}
+        placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
+        type={name === "email" ? "email" : "text"}
+        value={value}
+        onChange={(e) => { setValue(e.target.value); setErrors({ ...errors, [name]: "" }); }}
+      />
+      <div className={classes.errorMsgContainer}>
+        {errors[name] && <p className={classes.errorMsg}>{errors[name]}</p>}
+      </div>
+    </>
+  );
+
   return (
     <div className={classes.Container}>
       <div className={classes.loginInput}>
@@ -40,27 +60,8 @@ const Login = () => {
         <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
         <p className={classes.welcomeMsg}>Welcome back! Please login to your account.</p>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <input
-            className={errors.email? classes.inputError : classes.input}
-            placeholder='Email'
-            type='email'
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, email: "" }); }}
-          />
-          <div className={classes.errorMsgContainer}>
-            {errors.email && <p className={classes.errorMsg}>{errors.email}</p>}
-          </div>
-          <input
-            className={errors.password? classes.inputError : classes.input}
-            placeholder='Password'
-            type='password'
-            value={password}
-            onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, password: "" }); }}
-          />
-          <div className={classes.errorMsgContainer}>
-            {errors.password && <p className={classes.errorMsg}>{errors.password}</p>}
-          </div>
-          
+          <RenderField name="email" value={email} setValue={setEmail} />
+          <RenderField name="password" value={password} setValue={setPassword} />
           <button className={classes.button} type='submit'>Login</button>
         </form>
         <p className={classes.welcomeMsg}>
