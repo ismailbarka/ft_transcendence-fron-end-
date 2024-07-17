@@ -1,0 +1,12 @@
+.main{
+    background-color: #F8F0E5;
+    height: 100vh;
+}
+.container{
+    display: flex;
+}
+.nemu{
+    width: fit-content;
+    padding: 5px 20px;
+    border: 1px solid black ;
+}

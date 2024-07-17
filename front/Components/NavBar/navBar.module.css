@@ -1,0 +1,43 @@
+.container{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo{
+        display: flex;
+        align-items: center;
+        .logoImage{
+            width: 59px;
+            height: 86px;
+        }
+        .title{
+            margin: 10px;
+        }
+    }
+}
+
+
+
+.container{
+    position: relative;
+}
+/* 
+.input{
+    height: 30px;
+    margin: 10px;
+    padding: 2.5px;
+    padding-left: 40px;
+    border: none;
+    border-radius: 50px;
+    width: 300px;
+    background-color: rgba(151, 140, 140, 0.17);
+    color: white;
+}
+
+.imageStyle{
+    position: absolute;
+    right: 280px;
+    bottom: 15px;
+} */
