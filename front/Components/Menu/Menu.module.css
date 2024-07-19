@@ -1,0 +1,81 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    @media screen and (max-width: 720px) {
+        lex-direction: row;
+
+    }
+    .buttons1{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        @media screen and (max-width: 720px) {
+            gap: 10px;
+        }
+        .imgContainer{
+            width: 60px;
+            height: 60px;
+            @media screen and (max-width: 720px) {
+                width: 30px;
+                height: 30px;
+            }
+            background-color: #DAC0A3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            .img{
+                width: 30px;
+                height: 30px;
+                @media screen and (max-width: 720px) {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+        }
+        .title{
+            margin-left: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            @media screen and (max-width: 1000px) {
+                display: none;
+            }
+
+        }
+        .button{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 10px;    
+            border-radius: 13px;
+            @media screen and (max-width: 720px) {
+                padding: 0px;
+                margin: 5px;
+            }
+            &:hover{
+                background-color: #dac0a358;
+                .imgContainer{
+                    border: 1px solid black;
+                }
+            }
+        }
+        .buttonSlelected{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            @media screen and (max-width: 720px) {
+                padding: 0px;
+                margin: 5px;   
+            }
+            border-radius: 13px;
+                background-color: #DAC0A3;
+            .imgContainer{
+                    background-color: #102C57;
+                }
+
+        }
+    }
+}

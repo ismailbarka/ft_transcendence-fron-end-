@@ -1,6 +1,9 @@
-.container{
+.container {
     width: 100%;
     padding: 20px;
+    @media screen and (max-width: 1000px) {
+        padding: 1vw;
+    }
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -8,36 +11,80 @@
     .logo{
         display: flex;
         align-items: center;
-        .logoImage{
+
+        .logoImage {
             width: 59px;
             height: 86px;
+            @media screen and (max-width: 1000px) {
+                width: 5vw;
+                height: auto;
+            }
         }
-        .title{
+        .title {
             margin: 10px;
+            @media screen and (max-width: 1000px) {
+                display: none;
+            }
         }
     }
+
+    .search {
+        position: relative;
+
+        .input {
+            height: 56px;
+            margin: 10px;
+            padding: 2.5px;
+            padding-left: 53px;
+            border: none;
+            border-radius: 10px;
+            width: 666px;
+            background-color: #EADBC8;
+            color: #102C57;
+            @media screen and (max-width: 1000px) {
+                height: 30px;
+                width: 50vw;
+            }
+        }
+        
+        .imageStyle {
+            position: absolute;
+            left: 34px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    .profileAndIcons{
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        .icons{
+            display: flex;
+            gap: 15px;
+            .img{
+                width: 40px;
+                height: 40px;
+                @media screen and (max-width: 1000px) {
+                    width: 5vw;
+                    height: 5vw;
+                }
+            }
+        }
+        .profile{
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            .profileImage{
+                width: 66px;
+                height: 66px;
+                border-radius: 50%;
+                border: 1px solid #102C57;
+                @media screen and (max-width: 1000px) {
+                    width: 5vw;
+                    height: 5vw;
+                }
+            }
+        }
+
+    }
 }
-
-
-
-.container{
-    position: relative;
-}
-/* 
-.input{
-    height: 30px;
-    margin: 10px;
-    padding: 2.5px;
-    padding-left: 40px;
-    border: none;
-    border-radius: 50px;
-    width: 300px;
-    background-color: rgba(151, 140, 140, 0.17);
-    color: white;
-}
-
-.imageStyle{
-    position: absolute;
-    right: 280px;
-    bottom: 15px;
-} */

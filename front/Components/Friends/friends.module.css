@@ -1,0 +1,34 @@
+.Friends{
+    display: flex;
+    flex-direction: column;
+    background-color: #EADBC8;
+    height: 100%;
+    border-radius: 10px;
+
+    .buttons{
+        display: flex;
+        justify-content: space-around;
+        margin: 17px;
+
+        .button{
+            width: 90px;
+            height: 50px;
+            border:none;
+            background-color: #DAC0A3;
+            color: #102C57;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+        .buttonClicked{
+            width: 90px;
+            height: 50px;
+            border:none;
+            background-color: #102C57;
+            color: #ffffff;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+    }
+}

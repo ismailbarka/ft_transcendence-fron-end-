@@ -1,0 +1,64 @@
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #EADBC8;
+    border-radius: 10px;
+    
+    .title{
+
+    }
+    .chartContainer{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        .chart{
+            flex: 2;
+            width: 100%;
+            height: 100%;
+        }
+        .key{
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+            gap: 15px;
+
+
+            .winKey{
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                gap: 12px;
+            }
+            .loseKey{
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .winBox{
+                display: flex;
+                flex-direction: column;
+                width: 25px;
+                height: 25px;
+                background-color: #102C57;
+            }
+            .loseBox{
+                display: flex;
+                flex-direction: column;
+                width: 25px;
+                height: 25px;
+                background-color: #571010;
+            }
+
+        }
+
+    }
+}
