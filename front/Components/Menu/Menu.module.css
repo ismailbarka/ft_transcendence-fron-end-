@@ -1,6 +1,8 @@
 .container{
     display: flex;
     flex-direction: column;
+    flex: 1;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     @media screen and (max-width: 720px) {
@@ -8,6 +10,10 @@
 
     }
     .buttons1{
+        flex: 1;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.111) #11111100;
         display: flex;
         flex-direction: column;
         gap: 20px;

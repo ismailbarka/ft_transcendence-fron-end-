@@ -1,0 +1,51 @@
+.chat{
+    display: flex;
+    flex: 1;
+    flex-wrap: nowrap;
+
+    .searchAndFriends{
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        gap: 20px;
+        .title{
+            font-size: 24px;
+        }
+        .input{
+            border-radius: 10px;
+
+            width: 300px;
+            height: 50px;
+        }
+        .search {
+            position: relative;
+    
+            .input {
+                height: 56px;
+                padding: 2.5px;
+                padding-left: 53px;
+                border: none;
+                border-radius: 10px;
+                width: 300px;
+                background-color: #EADBC8;
+                color: #102C57;
+                @media screen and (max-width: 1000px) {
+                    height: 30px;
+                    width: 50vw;
+                }
+            }
+            
+            .imageStyle {
+                position: absolute;
+                left: 34px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+    }
+    .msgField{
+        background-color: aquamarine;
+        flex: 1;
+    }
+}

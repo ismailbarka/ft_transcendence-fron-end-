@@ -1,11 +1,17 @@
 .main{
     background-color: #F8F0E5;
+    display: flex;
+    flex-direction: column;
     height: 100vh;
+    color: black;
 }
 .container{
     display: flex;
+    flex: 1;
+    overflow-y: hidden;
 }
 .nemu{
+    display: flex;
     width: fit-content;
     padding: 5px 10px;
     @media screen and (max-width: 720px) {
@@ -15,4 +21,8 @@
 }
 .Content{
     width: 100%;
+    display: flex;
+    flex: 1;
+    overflow-y: hidden;
+
 }

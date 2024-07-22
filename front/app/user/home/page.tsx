@@ -5,6 +5,7 @@ import WeeklyAttendance from '@/Components/weeklyAttendance/WeeklyAttendance'
 import Rate from '@/Components/Rate/Rate'
 import ProgressBar from '@/Components/ProgressBar/ProgressBar'
 import Friends from '@/Components/Friends/Friends'
+import { Achievements } from '@/Components/Achievements/Achievements'
 const Home = () => {
   return (
     <div className={classes.home}>
@@ -14,7 +15,7 @@ const Home = () => {
       <div className={classes.box3}><Rate/></div>
       <div className={classes.line}><ProgressBar/></div>
       <div className={classes.box4}><Friends/></div>
-      <div className={classes.box5}>lin5</div>
+      <div className={classes.box5}><Achievements/></div>
       <div className={classes.box6}>lin6</div>
     </div>
   )
