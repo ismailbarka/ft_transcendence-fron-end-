@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    .user{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        .avatar{
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .icons{
+        display: flex;
+        gap: 20px;
+
+        .img{
+            color: black;
+            cursor: pointer;
+        }
+    }
+}

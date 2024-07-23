@@ -1,0 +1,170 @@
+.ChatField{
+    flex: 2;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .top{
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #000;
+
+
+        .user{
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+
+            .img{
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .texts{
+                display: flex;
+                gap: 5px;
+                flex-direction: column;
+
+                .span{
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+                .desc{
+
+                }
+
+            }
+        }
+        .icons{
+          display: flex;
+          gap: 10px;
+          
+          .icon{
+            width: 20px;
+            height: 20px;
+          }
+        }
+    }
+
+    .center{
+        flex: 1;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .message{
+            padding: 10px;
+            max-width: 70%;
+            display: flex;
+            gap: 20px;
+            .messangerProfile{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .texts{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                border-radius: 10px;
+                .pa{
+                    padding: 20px;
+                    background-color: #2c72342b;
+                    gap: 5px;
+                    border-radius: 10px;
+                }
+                .date{
+                    font-size: 13px;
+                }
+
+            }
+        }
+        .messageOwn{
+            padding: 10px;
+            max-width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-self: flex-end;
+        }
+        .texts{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            .pa{
+                padding: 20px;
+                background-color: #7023232b;
+                gap: 5px;
+                border-radius: 10px;
+            }
+        }
+        .imageMessage{
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    }
+    .bottom{
+        gap: 20px;
+        display: flex;
+        padding: 20px;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #000;
+
+        .icons{
+            display: flex;
+            gap: 20px;
+
+            .imagesButton{
+                width: 20px;
+                height: 20px;
+                object-fit: cover;
+                cursor: pointer;
+            }
+        }
+        .msgInput{
+            flex: 1;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            background-color: #DAC0A3;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .emoji{
+            position: relative;
+            .picker{
+                position:absolute;
+                bottom: 50px;
+                right: 0;
+            }
+        }
+
+        .sendButton{
+            background-color: #DAC0A3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .imagesButton{
+            width: 20px;
+                height: 20px;
+                object-fit: cover;
+                cursor: pointer;
+        }
+    }
+}
