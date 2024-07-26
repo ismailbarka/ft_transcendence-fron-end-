@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './chat.module.css'
 import Image from 'next/image'
 import searchImage from '../../../public/Search icon.svg'
-import { ChatList } from '@/Components/chatList/ChatList'
+import { ChatList } from '@/Components/ChatList/ChatList'
 import { ChatField } from '@/Components/ChatField/ChatField'
 import { ChatDetails } from '@/Components/ChatDetails/ChatDetails'
 

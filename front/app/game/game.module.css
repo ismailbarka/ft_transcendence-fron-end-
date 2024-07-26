@@ -1,0 +1,31 @@
+.gameHead{
+    grid-area: header;
+}
+
+.gameBody{
+    grid-area: main;
+    display: flex;
+    align-self: flex-sart;
+    justify-self:center;
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+}
+
+.gamePage{
+    display: grid;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    grid-template-areas:
+    'header'
+    'main';
+}
+
+.gameHead{
+    width: 100vw;
+    height: 10rem;
+    /* Made BY ABDELALI:CANISLUPUS */
+    display: flex;
+    justify-content: space-around;
+}
