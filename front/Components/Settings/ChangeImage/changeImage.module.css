@@ -1,0 +1,36 @@
+.ChangeImage{
+    width: 400px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .imageHover{
+        display: none;
+    }
+
+    .image{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+    
+}
+
+.ChangeImage:hover{
+
+    .imageHover{
+        display: flex;
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background-color: #ffffff83;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+    }
+
+}

@@ -1,0 +1,18 @@
+.changeUsername{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    gap: 10px;
+
+    .title{
+        font-size: 30px;
+    }
+    .input{
+        border-radius: 10px;
+        border: none;
+        padding: 20px;
+        width: 400px;
+        font-size: 30px;
+        background-color: #dac0a32c;
+    }
+}

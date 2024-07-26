@@ -1,0 +1,28 @@
+.LeaderBoard{
+    display: flex;
+    gap: 40px;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    margin: 20px;
+
+
+    .buttonContainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        .button{
+            border-radius: 10px;
+            border: none;
+            padding: 20px;
+            width: 400px;
+            font-size: 30px;
+            background-color: #DAC0A3;
+            cursor: pointer;
+            
+        }
+    }
+}

@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.5",
+    "@mui/x-data-grid": "^7.11.0",
     "@ramonak/react-progress-bar": "^5.2.0",
     "bootstrap": "^5.3.3",
     "emoji-picker-react": "^4.11.1",

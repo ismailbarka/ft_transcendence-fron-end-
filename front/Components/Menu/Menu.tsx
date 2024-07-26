@@ -33,7 +33,7 @@ const choices: Choice[] = [{
   imageUrl : friendsImage
 },
 {
-  name : "Place",
+  name : "LeaderBoard",
   imageUrl : placeImage
 },
 {
