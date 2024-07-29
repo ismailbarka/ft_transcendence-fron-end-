@@ -115,7 +115,7 @@ const ThreeScene = () => {
 
   return (
     <div className={style.canvaStyle}>
-      <Canvas camera={{ fov: 45, position: [0, -20, -20] }}>
+      <Canvas camera={{ fov: 45, position: [0, -20, -10] }}>
         <ResponsiveCamera />
         <OrbitControls
           enableZoom={false}
