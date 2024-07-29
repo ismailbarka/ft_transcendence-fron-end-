@@ -2,9 +2,11 @@
 
 .Container {
     display: flex;
-    height: 100vh;
+    flex: 1;
     .loginInput {
         flex: 1;
+        height: 100vh;
+        overflow-y: scroll;
         background-color: #F8F0E5;
         display: flex;
         flex-direction: column;
@@ -109,7 +111,9 @@
     }
     
     .loginImage {
+
         flex: 1;
+        height: 100vh;
         display: flex;
         align-items: center;
         background-color: #DCCDAE;

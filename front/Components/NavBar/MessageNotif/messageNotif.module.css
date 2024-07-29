@@ -1,0 +1,44 @@
+.MessageNotif{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+}
+
+.window{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: scroll;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: #F8F0E5;
+
+    .element{
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+        width: 100%;
+        border-radius: 10px;
+        .avatar{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    }
+    .element:hover{
+        background-color: aquamarine;
+    }
+}

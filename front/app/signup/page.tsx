@@ -83,10 +83,50 @@ const Signup: React.FC = () => {
         <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
         <p className={classes.welcomeMsg}>Welcome back! Please signup to your account.</p>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <RenderField name="username" value={username} setValue={setUsername} />
-          <RenderField name="email" value={email} setValue={setEmail} />
-          <RenderField name="password" value={password} setValue={setPassword} />
-          <RenderField name="confirmPassword" value={confirmPassword} setValue={setConfirmPassword} />
+          <>
+            <input
+              className={errors["username"] ? classes.inputError : classes.input}
+              placeholder="username"
+              type="text"
+              onChange={(e) => { setUsername(e.target.value); setErrors({ ...errors, ["username"]: "" }); }}
+            />
+            <div className={classes.errorMsgContainer}>
+              {errors["username"] && <p className={classes.errorMsg}>{errors["username"]}</p>}
+            </div>
+          </>
+          <>
+            <input
+              className={errors["email"] ? classes.inputError : classes.input}
+              placeholder="email"
+              type="text"
+              onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, ["email"]: "" }); }}
+            />
+            <div className={classes.errorMsgContainer}>
+              {errors["email"] && <p className={classes.errorMsg}>{errors["email"]}</p>}
+            </div>
+          </>
+          <>
+            <input
+              className={errors["password"] ? classes.inputError : classes.input}
+              placeholder="password"
+              type="text"
+              onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, ["password"]: "" }); }}
+            />
+            <div className={classes.errorMsgContainer}>
+              {errors["password"] && <p className={classes.errorMsg}>{errors["password"]}</p>}
+            </div>
+          </>
+          <>
+            <input
+              className={errors["confirmPassword"] ? classes.inputError : classes.input}
+              placeholder="confirmPassword"
+              type="text"
+              onChange={(e) => { setConfirmPassword(e.target.value); setErrors({ ...errors, ["confirmPassword"]: "" }); }}
+            />
+            <div className={classes.errorMsgContainer}>
+              {errors["confirmPassword"] && <p className={classes.errorMsg}>{errors["confirmPassword"]}</p>}
+            </div>
+          </>
           <button className={classes.button} type='submit'>Signup</button>
         </form>
         <p className={classes.welcomeMsg}>

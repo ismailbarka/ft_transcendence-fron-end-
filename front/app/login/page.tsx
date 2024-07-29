@@ -12,17 +12,12 @@ const schema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters" })
 });
 
-type Errors ={
-  email: string;
-  password:string
-}
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ email: "", password: "" });
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<Errors>({ email: "", password: "" });
-
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const result = schema.safeParse({ email, password });
 
@@ -38,7 +33,7 @@ const Login: React.FC = () => {
     console.log("Password:", password);
   };
 
-  const RenderField: React.FC<{ name: keyof Errors; value: string; setValue: React.Dispatch<React.SetStateAction<string>> }> = ({ name, value, setValue }) => (
+  const RenderField = ({ name, value, setValue }) => (
     <>
       <input
         className={errors[name] ? classes.inputError : classes.input}
@@ -60,8 +55,28 @@ const Login: React.FC = () => {
         <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
         <p className={classes.welcomeMsg}>Welcome back! Please login to your account.</p>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <RenderField name="email" value={email} setValue={setEmail} />
-          <RenderField name="password" value={password} setValue={setPassword} />
+          <>
+            <input
+              className={errors["email"] ? classes.inputError : classes.input}
+              placeholder="email"
+              type="email"
+              onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, "email": "" }); }}
+            />
+            <div className={classes.errorMsgContainer}>
+              {errors["email"] && <p className={classes.errorMsg}>{errors["email"]}</p>}
+            </div>
+          </>
+          <>
+            <input
+              className={errors["password"] ? classes.inputError : classes.input}
+              placeholder="password"
+              type="password"
+              onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, "password": "" }); }}
+            />
+            <div className={classes.errorMsgContainer}>
+              {errors["password"] && <p className={classes.errorMsg}>{errors["password"]}</p>}
+            </div>
+          </>
           <button className={classes.button} type='submit'>Login</button>
         </form>
         <p className={classes.welcomeMsg}>
