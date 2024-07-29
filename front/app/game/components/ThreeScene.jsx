@@ -1,21 +1,23 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import Plane from './plane.jsx'
 import SuperBall from './SuperBall.jsx'
+import style from './ThreeScene.module.scss'
 
 const planeH = 15;
 const planeW = 10;
+const planeX = 0;
 
-const Paddle = ({position}) => {
+const Paddle = React.memo(({position}) => {
   return (
     <mesh position={position}>
       <boxGeometry args={[2, 0.2, 0.2]} /> 
-      <meshPhongMaterial color="red" />
+      <meshPhongMaterial color="white" />
     </mesh>
   );
-};
+});
 
 const ResponsiveCamera = () => {
   const { viewport, camera } = useThree()
@@ -47,6 +49,10 @@ const ThreeScene = () => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleScoreUpdate = useCallback((newScore) => {
+    setScore(newScore);
   }, []);
 
   useEffect(() => {
@@ -85,12 +91,12 @@ const ThreeScene = () => {
   
     const animate = () => {
       setPaddle1Pos(prev => [
-        Math.max(Math.min(prev[0] + paddle1Direction * 0.5, 4), -4),
+        Math.max(Math.min(prev[0] + paddle1Direction * 0.5, 4), -3),
         prev[1],
         prev[2]
       ]);
       setPaddle2Pos(prev => [
-        Math.max(Math.min(prev[0] + paddle2Direction * 0.5, 4), -4),
+        Math.max(Math.min(prev[0] + paddle2Direction * 0.5, 4), -3),
         prev[1],
         prev[2]
       ]);
@@ -107,50 +113,27 @@ const ThreeScene = () => {
     };
   }, []);
 
-  const handleScoreUpdate = (newScore) => {
-    setScore(newScore);
-  };
-
-  const canvasStyle = {
-    width: '100%',
-    height: '100%',
-    minWidth: '300px',
-    minHeight: '300px',
-    maxWidth: '1000px',
-    maxHeight: '1000px',
-    margin: '0 auto',
-  };
-
   return (
-    <div style={{
-      width: '100vw',
-      height: '100vh',
-      margin: 0,
-      padding: 0,
-      overflow: 'hidden',
-    }}>
-      <div style={canvasStyle}>
-        <Canvas camera={{ position: [10, 10, 0], fov: 90 }}>
-          <ResponsiveCamera />
-          <OrbitControls
-            enableZoom={false}
-            minAzimuthAngle={Math.PI /2}
-            minPolarAngle={Math.PI / 6} 
-            maxPolarAngle={Math.PI / 6} 
-          />
-          <ambientLight intensity={0.4} />
-          <Plane />
-          <SuperBall
-            paddlePositions={[
-              {x: paddle1Pos[0], y: paddle1Pos[1], z: paddle1Pos[2]},
-              {x: paddle2Pos[0], y: paddle2Pos[1], z: paddle2Pos[2]}
-            ]}
-            onScoreUpdate={handleScoreUpdate}
-          />
-          <Paddle position={paddle1Pos} />
-          <Paddle position={paddle2Pos} />
-        </Canvas>
-      </div>
+    <div className={style.canvaStyle}>
+      <Canvas camera={{ fov: 45, position: [0, -20, -20] }}>
+        <ResponsiveCamera />
+        <OrbitControls
+          enableZoom={false}
+          minPolarAngle={Math.PI / 6} 
+          maxPolarAngle={Math.PI / 6} 
+        />
+        <ambientLight intensity={0.4} />
+        <Plane />
+        <SuperBall
+          paddlePositions={[
+            {x: paddle1Pos[0], y: paddle1Pos[1], z: paddle1Pos[2]},
+            {x: paddle2Pos[0], y: paddle2Pos[1], z: paddle2Pos[2]}
+          ]}
+          onScoreUpdate={handleScoreUpdate}
+        />
+        <Paddle position={paddle1Pos} />
+        <Paddle position={paddle2Pos} />
+      </Canvas>
     </div>
   );
 };

@@ -1,20 +1,11 @@
 .gameHead{
     grid-area: header;
-}
-
-.gameBody{
-    grid-area: main;
-    display: flex;
-    align-self: flex-sart;
-    justify-self:center;
-    width: 80%;
-    height: 80%;
-    background-color: #fff;
-}
+}   
 
 .gamePage{
     display: grid;
     overflow: hidden;
+    background-color: rgb(143, 145, 40);
     padding: 0;
     margin: 0;
     grid-template-areas:
@@ -28,4 +19,20 @@
     /* Made BY ABDELALI:CANISLUPUS */
     display: flex;
     justify-content: space-around;
+}
+
+
+.stats{
+    background-color: black;
+    display:flex;
+    justify-content: space-around;
+}
+
+.Body{
+    width: 100%;
+    height: 80vh;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

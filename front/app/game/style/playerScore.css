@@ -1,16 +1,17 @@
 
 .player{
-    /* background-color: var(--obsi); */
+    background-color: aqua;
     width: 25vw;
-    height: 8vh;
+    height: fit-content;
     border-radius:20px;
     border:1px solid rgb(143, 148, 67);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-flow:wrap row;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
-    padding: 0 10px;
+    padding:5px;
+    margin: 20px;
+    box-shadow: 0 4px 6px black;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .LeftPlayer{

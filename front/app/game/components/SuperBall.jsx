@@ -156,11 +156,13 @@ const SuperBall = ({ paddlePositions, onScoreUpdate }) => {
           <Html center>
             <div style={{
               position: 'relative',
-              alignContent:'center',
-              width: '500px',
-              height: '500px',
+              maxWidth:'fit-content',
+              display:'flex',
+              width:'500px',
+              justifyContent:'center',
+              alignItems:'center',
               color: 'white',
-              fontSize: '52px',
+              fontSize: '40px',
               fontWeight: 'bold',
               textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
               backgroundColor: 'rgba(0,0,0,0.9)',

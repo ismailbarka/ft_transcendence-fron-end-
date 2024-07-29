@@ -1,10 +1,11 @@
+'use client'
 import React from 'react'
 import ThreeScene from './components/ThreeScene.jsx'
 import './style/playerScore.css'
 import Image from 'next/image.js'
 import style from './game.module.css'
-import { BsFillMicMuteFill } from "react-icons/bs";
-import { IoChatboxEllipsesOutline } from "react-icons/io5";
+import { useState, useEffect, useCallback } from 'react';
+
 
 
 function PlayerInfo({source, playerName, playerScore, direction}) {
@@ -24,6 +25,51 @@ function PlayerInfo({source, playerName, playerScore, direction}) {
   )
 }
 
+// Moved Stats outside of the Canvas
+const Stats = () => {
+  const [fps, setFps] = useState(0);
+  const [ping, setPing] = useState(0);
+
+  useEffect(() => {
+    let lastTime = performance.now();
+    let frames = 0;
+
+    const updateFps = () => {
+      const time = performance.now();
+      frames++;
+      if (time >= lastTime + 1000) {
+        setFps(Math.round((frames * 1000) / (time - lastTime)));
+        frames = 0;
+        lastTime = time;
+      }
+      requestAnimationFrame(updateFps);
+    };
+
+    const updatePing = () => {
+      const start = performance.now();
+      fetch('/api/ping').then(() => {
+        const end = performance.now();
+        setPing(Math.round(end - start));
+      });
+    };
+
+    updateFps();
+    updatePing();
+    const pingInterval = setInterval(updatePing, 5000);
+
+    return () => {
+      clearInterval(pingInterval);
+    };
+  }, []);
+
+  return (
+    <div className={style.stats}>
+      <div>FPS: {fps}</div>
+      <div>Ping: {ping}ms</div>
+    </div>
+  );
+};
+
  function Head() {
   return (
     <div className={style.gameHead}>
@@ -35,22 +81,15 @@ function PlayerInfo({source, playerName, playerScore, direction}) {
   )
 }
 
-function Body(){
-  return(
-    <div className={style.gameBody}>
-
-    </div>
-  )
-}
-
 
 function page() {
   return (
     <div className={style.gamePage}>
         <Head />
-        <div className={style.gameBody}>
-           <ThreeScene />
+        <div className={style.Body}>
+          <ThreeScene />
         </div>
+        <Stats />
       </div>
   )
 }
