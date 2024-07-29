@@ -3,8 +3,7 @@
 .Container {
     display: flex;
     flex: 1;
-
-    .signupInput {
+    .SignupInput {
         flex: 1;
         height: 100vh;
         overflow-y: scroll;
@@ -111,7 +110,7 @@
         }
     }
     
-    .loginImage {
+    .SignupImage {
 
         flex: 1;
         height: 100vh;
