@@ -29,10 +29,6 @@ const choices: Choice[] = [{
   imageUrl : gameImage
 },
 {
-  name : "Friends",
-  imageUrl : friendsImage
-},
-{
   name : "LeaderBoard",
   imageUrl : placeImage
 },

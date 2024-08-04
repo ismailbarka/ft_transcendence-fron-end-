@@ -1,18 +1,23 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './page.module.css'
 import playerSigningInImage from "../../public/image 1.png"
 import Image from 'next/image'
 import Link from 'next/link'
 import { z } from 'zod'
+import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 // Define the validation schema using zod
 const schema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" })
+  email: z.string(),
+  password: z.string()
 });
 
 const Login = () => {
+
+
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -31,6 +36,18 @@ const Login = () => {
     }
     console.log("Email:", email);
     console.log("Password:", password);
+    const infos = {
+      "username": email,
+      "password": password
+    }
+    axios.post("http://localhost:8000/api/auth/login/", {
+      "username": email,
+      "password": password
+    }).then((res) => {
+      console.log("res", res);
+    }).catch(error => {
+      console.log("error", error.message)
+    })
   };
 
   const RenderField = ({ name, value, setValue }) => (
@@ -38,7 +55,7 @@ const Login = () => {
       <input
         className={errors[name] ? classes.inputError : classes.input}
         placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
-        type={name === "email" ? "email" : "text"}
+        type="text"
         value={value}
         onChange={(e) => { setValue(e.target.value); setErrors({ ...errors, [name]: "" }); }}
       />
@@ -47,9 +64,15 @@ const Login = () => {
       </div>
     </>
   );
+  const router = useRouter();
+
+    // ()=> router.push("/test"); 
+
 
   return (
+
     <div className={classes.Container}>
+      <button onClick={() =>console.log(document.cookie)}>test</button>
       <div className={classes.loginInput}>
         <h1 className={classes.title}>Login</h1>
         <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
@@ -59,7 +82,7 @@ const Login = () => {
             <input
               className={errors["email"] ? classes.inputError : classes.input}
               placeholder="email"
-              type="email"
+              type="text"
               onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, "email": "" }); }}
             />
             <div className={classes.errorMsgContainer}>

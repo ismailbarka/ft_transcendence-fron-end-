@@ -10,9 +10,15 @@ import { ChatDetails } from '@/Components/ChatDetails/ChatDetails'
 const Chat = () => {
   return (
     <div className={classes.chat}>
-      <ChatList />
-      <ChatField />
-      <ChatDetails />
+      <div className={classes.ChatList}>
+        <ChatList />
+      </div>
+      <div className={classes.ChatField}>
+        <ChatField />
+      </div>
+      <div className={classes.ChatDetails}>
+        <ChatDetails />
+      </div>
     </div>
   )
 }

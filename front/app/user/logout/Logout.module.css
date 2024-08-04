@@ -1,0 +1,27 @@
+.logout{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    .yesOrNo{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .buttonNo{
+            padding: 10px 30px;
+            background-color: #DAC0A3;
+            border-radius: 10px;
+
+        }
+        .buttonYes{
+            padding: 10px 30px;
+            background-color: #DAC0A3;
+            border-radius: 10px;
+        }
+    }
+
+}

@@ -2,6 +2,7 @@
     flex: 1;
     background-color: #F8F0E5;
     overflow-y: scroll;
+    height: 100%;
     
     .users{
         padding: 30px;
