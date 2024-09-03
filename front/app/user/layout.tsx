@@ -2,6 +2,7 @@ import React, { Children } from 'react'
 import classes from './page.module.css'
 import NavBar from '../../Components/NavBar/NavBar'
 import Menu from '@/Components/Menu/Menu'
+import { useRouter } from 'next/navigation'
 
 // export default layout
 import type { Metadata } from "next";

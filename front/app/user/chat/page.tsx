@@ -1,13 +1,23 @@
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 import classes from './chat.module.css'
 import Image from 'next/image'
 import searchImage from '../../../public/Search icon.svg'
 import { ChatList } from '@/Components/chatList/ChatList'
 import { ChatField } from '@/Components/ChatField/ChatField'
 import { ChatDetails } from '@/Components/ChatDetails/ChatDetails'
+import { useRouter } from 'next/navigation'
 
 
 const Chat = () => {
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const access = localStorage.getItem("access");
+    if(!access)
+      router.push("/login");
+  }, []);
   return (
     <div className={classes.chat}>
       <div className={classes.ChatList}>

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './navBar.module.css';
 import Image from 'next/image';
 import mainLogo from '../../public/Main Logo.svg';
@@ -9,10 +9,27 @@ import notificationsImage from '../../public/Notifications.svg';
 import playerImage from '../../public/player.png'
 import MessageNotif from './MessageNotif/MessageNotif';
 import NotifNotif from './NotifNotif/NotifNotif';
+import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
-  const [msgOpen, setMsgOpen] = useState(false)
-  const [notifOpen, setNotifOpen] = useState(false)
+  const router = useRouter();
+  const [loaded, setLoaded] = useState(false);  // State to control when the component is loaded
+
+  useEffect(() => {
+    const access = localStorage.getItem("access");
+    if (!access) {
+      router.push("/login");  // Redirect if access token is not available
+    } else {
+      setLoaded(true);  // Set loaded to true only if access token is present
+    }
+  }, [router]);
+
+  const [msgOpen, setMsgOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+
+  if (!loaded) {
+    return null;  // Return nothing until the component is loaded
+  }
 
   return (
     <div className={classes.container}>
@@ -27,16 +44,12 @@ const NavBar = () => {
       <div className={classes.profileAndIcons}>
         <div className={classes.icons}>  
           <Image src={messagesImage} alt='messages' className={classes.img} onClick={() => setMsgOpen(!msgOpen)}/>
-          {
-          msgOpen && <MessageNotif setMsgOpen={setMsgOpen}/>
-          }
-          <Image src={notificationsImage} alt='messages' className={classes.img} onClick={() => setNotifOpen(!notifOpen)}/>
-          {
-          notifOpen && <NotifNotif setNotifOpen={setNotifOpen}/>
-          }
+          {msgOpen && <MessageNotif setMsgOpen={setMsgOpen}/>}
+          <Image src={notificationsImage} alt='notifications' className={classes.img} onClick={() => setNotifOpen(!notifOpen)}/>
+          {notifOpen && <NotifNotif setNotifOpen={setNotifOpen}/>}
         </div>
         <div className={classes.profile}>
-        <Image src={playerImage} alt='messages' className={classes.profileImage}/>
+          <Image src={playerImage} alt='profile' className={classes.profileImage}/>
         </div>
       </div>
     </div>

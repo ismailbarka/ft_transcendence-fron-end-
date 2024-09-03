@@ -1,116 +1,130 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import classes from './page.module.css'
-import playerSigningInImage from "../../public/image 1.png"
-import Image from 'next/image'
-import Link from 'next/link'
-import { z } from 'zod'
+import React, { useContext, useEffect, useState } from 'react';
+import classes from './page.module.css';
+import playerSigningInImage from "../../public/image 1.png";
+import Image from 'next/image';
+import Link from 'next/link';
+import { z } from 'zod';
 import axios from 'axios';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { UserContext } from '../context/UserContext';
 
-// Define the validation schema using zod
 const schema = z.object({
-  email: z.string(),
+  username: z.string(),
   password: z.string()
 });
 
 const Login = () => {
 
+  // const {updateUserData} = useContext(UserContext);
 
-  
-  const [email, setEmail] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const router = useRouter();
+  const [isloading, setIsloading] = useState(false);
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({ username: "", password: "", detail: "" });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const access = localStorage.getItem("access");
+    if (access) {
+      router.push("/user/home");
+    } else {
+      setLoaded(true);
+    }
+  }, [router]);
+
+  const setUserInfos = async (access) =>{
+    try {
+      const res = await axios.post("http://localhost:8000/api/users/me", {
+      
+      });
+      console.log(res);
+    } catch (err) {
+      setErrors({ ...errors, ...err.response.data });
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = schema.safeParse({ email, password });
+    setErrors({ username: "", password: "", detail: "" });
+    setIsloading(true);
+    const result = schema.safeParse({ username, password });
 
     if (!result.success) {
       const errorMessages = result.error.flatten().fieldErrors;
       setErrors({
-        email: errorMessages.email ? errorMessages.email[0] : "",
+        username: errorMessages.username ? errorMessages.username[0] : "",
         password: errorMessages.password ? errorMessages.password[0] : "",
+        detail: errors.detail
       });
+      setIsloading(false);
       return;
     }
-    console.log("Email:", email);
-    console.log("Password:", password);
-    const infos = {
-      "username": email,
-      "password": password
+
+    try {
+      const res = await axios.post("http://localhost:8000/api/auth/token/", {
+        username: username,
+        password: password
+      });
+      localStorage.setItem("refresh", res.data.refresh);
+      localStorage.setItem("access", res.data.access);
+      setUserInfos(res.data.access)
+      router.push("/user/home");
+    } catch (err) {
+      setErrors({ ...errors, ...err.response.data });
+    } finally {
+      setIsloading(false);
     }
-    axios.post("http://localhost:8000/api/auth/login/", {
-      "username": email,
-      "password": password
-    }).then((res) => {
-      console.log("res", res);
-    }).catch(error => {
-      console.log("error", error.message)
-    })
   };
 
-  const RenderField = ({ name, value, setValue }) => (
-    <>
-      <input
-        className={errors[name] ? classes.inputError : classes.input}
-        placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
-        type="text"
-        value={value}
-        onChange={(e) => { setValue(e.target.value); setErrors({ ...errors, [name]: "" }); }}
-      />
-      <div className={classes.errorMsgContainer}>
-        {errors[name] && <p className={classes.errorMsg}>{errors[name]}</p>}
-      </div>
-    </>
-  );
-  const router = useRouter();
-
-    // ()=> router.push("/test"); 
-
-
   return (
-
-    <div className={classes.Container}>
-      <button onClick={() =>console.log(document.cookie)}>test</button>
-      <div className={classes.loginInput}>
-        <h1 className={classes.title}>Login</h1>
-        <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
-        <p className={classes.welcomeMsg}>Welcome back! Please login to your account.</p>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <>
-            <input
-              className={errors["email"] ? classes.inputError : classes.input}
-              placeholder="email"
-              type="text"
-              onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, "email": "" }); }}
-            />
+    loaded ? (
+      <div className={classes.Container}>
+        <div className={classes.loginInput}>
+          <h1 className={classes.title}>Login</h1>
+          <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
+          <p className={classes.welcomeMsg}>Welcome back! Please login to your account.</p>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <>
+              <input
+                disabled={isloading}
+                className={errors["username"] ? classes.inputError : classes.input}
+                placeholder="username"
+                type="text"
+                onChange={(e) => { setUsername(e.target.value); setErrors({ ...errors, "username": "" }); }}
+              />
+              <div className={classes.errorMsgContainer}>
+                {errors["username"] && <p className={classes.errorMsg}>{errors["username"]}</p>}
+              </div>
+            </>
+            <>
+              <input
+                disabled={isloading}
+                className={errors["password"] ? classes.inputError : classes.input}
+                placeholder="password"
+                type="password"
+                onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, "password": "" }); }}
+              />
+              <div className={classes.errorMsgContainer}>
+                {errors["password"] && <p className={classes.errorMsg}>{errors["password"]}</p>}
+              </div>
+            </>
             <div className={classes.errorMsgContainer}>
-              {errors["email"] && <p className={classes.errorMsg}>{errors["email"]}</p>}
+              {errors["detail"] && <p className={classes.errorMsg}>{errors["detail"]}</p>}
             </div>
-          </>
-          <>
-            <input
-              className={errors["password"] ? classes.inputError : classes.input}
-              placeholder="password"
-              type="password"
-              onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, "password": "" }); }}
-            />
-            <div className={classes.errorMsgContainer}>
-              {errors["password"] && <p className={classes.errorMsg}>{errors["password"]}</p>}
-            </div>
-          </>
-          <button className={classes.button} type='submit'>Login</button>
-        </form>
-        <p className={classes.welcomeMsg}>
-          If you don't have an account <Link href="/" className={classes.signUp}>SignUp</Link>
-        </p>
+            <button disabled={isloading} className={classes.button} type='submit'>Login</button>
+          </form>
+          <p className={classes.welcomeMsg}>
+            If you don't have an account <Link href="/signup" className={classes.signUp}>SignUp</Link>
+          </p>
+        </div>
+        <div className={classes.loginImage}>
+          <Image src={playerSigningInImage} className={classes.PlayerSigningInStyle} alt="Player Signing In" />
+        </div>
       </div>
-      <div className={classes.loginImage}>
-        <Image src={playerSigningInImage} className={classes.PlayerSigningInStyle} alt="Player Signing In" />
-      </div>
-    </div>
-  )
+    ) : <div>Loading...</div>
+  );
 }
 
-export default Login
+export default Login;

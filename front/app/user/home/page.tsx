@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useContext, useEffect } from 'react'
 import classes from "./home.module.css"
 import PlayerInfos from '@/Components/PlayerInfos/PlayerInfos'
 import WeeklyAttendance from '@/Components/weeklyAttendance/WeeklyAttendance'
@@ -6,10 +7,12 @@ import Rate from '@/Components/Rate/Rate'
 import ProgressBar from '@/Components/ProgressBar/ProgressBar'
 import Friends from '@/Components/Friends/Friends'
 import { Achievements } from '@/Components/Achievements/Achievements'
+import { useRouter } from 'next/navigation'
+import { UserContext } from '@/app/context/UserContext'
 const Home = () => {
+  
   return (
     <div className={classes.home}>
-
       <div className={classes.box1}><PlayerInfos/></div>
       <div className={classes.box2}><WeeklyAttendance/></div>
       <div className={classes.box3}><Rate/></div>

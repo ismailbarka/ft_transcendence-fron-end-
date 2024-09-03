@@ -2,15 +2,26 @@
 import Link from 'next/link';
 import classes from './Logout.module.css'
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Logout: React.FC = () => {
+  const router = useRouter();
+  const handleLogout = async () =>{
 
-  const handleLogout = () =>{
-    axios.post("http://localhost:8000/api/auth/logout/").then((res) => {
-      console.log("res", res);
-    }).catch(error => {
-      console.log("error", error.message)
-    })
+
+    try {
+      const res = await axios.post("http://localhost:8000/api/auth/token/blacklist/",{
+        "refresh" : localStorage.getItem("refresh")
+      })
+      localStorage.removeItem("refresh");
+      localStorage.removeItem("access");
+    } catch (err) {
+      console.log(err);
+      
+    }finally{
+      router.push("/login");
+    }
   }
 
   return (

@@ -1,9 +1,10 @@
-
-import * as React from 'react';
+"use client"
 import classes from './leaderBoard.module.css'
 import Image from 'next/image';
 import avatar from '../../../public/chat/avatar.png'
 import ProgressBar from '@/Components/ProgressBar/ProgressBar';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 
 const data = [
