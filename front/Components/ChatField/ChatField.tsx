@@ -41,8 +41,6 @@ export const ChatField = () => {
           </div>
         </div>
         <div className={classes.icons}>
-          <Image alt='' src={phone} className={classes.icon}></Image>
-          <Image alt='' src={video} className={classes.icon}></Image>
           <Image alt='' src={info} className={classes.icon}></Image>
         </div>
       </div>
@@ -91,11 +89,6 @@ export const ChatField = () => {
       </div>
 
       <div className={classes.bottom}>
-        <div className={classes.icons}>
-          <Image alt='' src={mic} className={classes.imagesButton}></Image>
-          <Image alt='' src={camera} className={classes.imagesButton}></Image>
-          <Image alt='' src={img} className={classes.imagesButton}></Image>
-        </div>
         <input type='text' placeholder='type a message...' className={classes.msgInput} onChange={(e) => setText(e.target.value)} value={text}/>
         <div className={classes.emoji}>
           <Image alt='' src={emoji} className={classes.imagesButton} onClick={() => {setOpen(!open)}}></Image>

@@ -1,8 +1,6 @@
 .ChatFriends{
-
     flex: 1;
-    overflow: scroll;
-
+    overflow-y: scroll;
     .search{
         display: flex;
         align-items: center;

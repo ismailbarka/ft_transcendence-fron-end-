@@ -7,10 +7,9 @@ import { ChatList } from '@/Components/chatList/ChatList'
 import { ChatField } from '@/Components/ChatField/ChatField'
 import { ChatDetails } from '@/Components/ChatDetails/ChatDetails'
 import { useRouter } from 'next/navigation'
-
+import avatar from '../../../public/chat/avatar.png'
 
 const Chat = () => {
-
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const Chat = () => {
   return (
     <div className={classes.chat}>
       <div className={classes.ChatList}>
-        <ChatList />
+        <ChatList userName={"smail"} avatar={avatar}/>
       </div>
       <div className={classes.ChatField}>
         <ChatField />

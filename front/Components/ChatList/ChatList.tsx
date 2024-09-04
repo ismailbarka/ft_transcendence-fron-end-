@@ -2,10 +2,11 @@ import React from 'react'
 import classes from './chatList.module.css'
 import { UserInfo } from './UserInfo/UserInfo'
 import { ChatFriends } from './ChatFriends/ChatFriends'
-export const ChatList = () => {
+
+export const ChatList = ({userName, avatar}) => {
   return (
     <div className={classes.ChatList}>
-      <UserInfo />
+      <UserInfo userName={userName} Avatar={avatar}/>
       <ChatFriends />
     </div>
   )
