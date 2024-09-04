@@ -1,5 +1,7 @@
 import React from 'react'
 import classes from "./playerInfos.module.css"
+import { UserContext } from '@/app/context/UserContext';
+import { useContext } from "react";
 
 interface Infos{
     name:string;
@@ -16,12 +18,16 @@ const data : Infos = {
     rank:4
 }
 
+
+
 const PlayerInfos = () => {
+    const {UserData} = useContext(UserContext);
+
   return (
     <div className={classes.playerinfos}>
     <div className={classes.info}>
         <h2>Name:</h2>
-        <h2>{data.name}</h2>
+        <h2>{UserData.username}</h2>
     </div>
     <div className={classes.info}>
         <h2>Wins:</h2>

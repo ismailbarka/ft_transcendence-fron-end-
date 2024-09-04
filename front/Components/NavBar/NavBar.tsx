@@ -10,12 +10,17 @@ import playerImage from '../../public/player.png'
 import MessageNotif from './MessageNotif/MessageNotif';
 import NotifNotif from './NotifNotif/NotifNotif';
 import { useRouter } from 'next/navigation';
+import { UserContext } from '@/app/context/UserContext';
+import { useContext } from "react";
 
 const NavBar = () => {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);  // State to control when the component is loaded
+  const {UserData} = useContext(UserContext);
 
   useEffect(() => {
+    console.log(UserData);
+     
     const access = localStorage.getItem("access");
     if (!access) {
       router.push("/login");  // Redirect if access token is not available
@@ -49,7 +54,7 @@ const NavBar = () => {
           {notifOpen && <NotifNotif setNotifOpen={setNotifOpen}/>}
         </div>
         <div className={classes.profile}>
-          <Image src={playerImage} alt='profile' className={classes.profileImage}/>
+          <Image src={UserData.avatar} alt='profile' className={classes.profileImage} width={100} height={100}/>
         </div>
       </div>
     </div>

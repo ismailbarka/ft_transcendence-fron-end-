@@ -16,7 +16,7 @@ const schema = z.object({
 
 const Login = () => {
 
-  // const {updateUserData} = useContext(UserContext);
+  const {updateUserData} = useContext(UserContext);
 
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
@@ -34,16 +34,24 @@ const Login = () => {
     }
   }, [router]);
 
-  const setUserInfos = async (access) =>{
+  const setUserInfos = async (access) => {
+    console.log(`Bearer ${access}`);
+    
     try {
-      const res = await axios.post("http://localhost:8000/api/users/me", {
-      
+      const res = await axios.get("http://localhost:8000/api/users/me/", {
+        headers: {
+          Authorization: `Bearer ${access}`, 
+        },
       });
-      console.log(res);
+      console.log("Response data:", res.data.avatar); 
+      updateUserData({id: res.data.id, username: res.data.username ,avatar: res.data.avatar ,first_name: res.data.first_name, last_name: res.data.last_name})
+      console.log("Access token used:", access);
     } catch (err) {
-      setErrors({ ...errors, ...err.response.data });
+      console.error("Error response:", err.response); 
+      setErrors({ ...errors, ...err.response?.data });
     }
-  }
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
