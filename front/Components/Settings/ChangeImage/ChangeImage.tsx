@@ -2,17 +2,18 @@ import Image from "next/image"
 import avatar from '../../../public/chat/avatar.png'
 import classes from './changeImage.module.css'
 import ImageUpload from "./ImageUpload"
+import { useContext, useEffect, useState } from "react"
+import loadMyData from "@/Components/LoadMyData"
+import { UserContext } from "@/app/context/UserContext"
 
-const ChangeImage = () => {
+const ChangeImage = ({setCurrentPage}) => {
+    const {UserData, updateUserData} = useContext(UserContext);
+
+
+    
     return (
-        // <div className={classes.ChangeImage}>
-        //     <Image alt="" src={avatar} className={classes.image}/>
-        //     <div className={classes.imageHover}>Change</div>
-        // </div>
         <div>
-            <h1>
-                <ImageUpload />
-            </h1>
+            <ImageUpload setCurrentPage={setCurrentPage}/>
         </div>
     )
 }

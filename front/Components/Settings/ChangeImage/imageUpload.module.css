@@ -25,6 +25,7 @@
     border: 1px solid black;
     background-color: #F8F0E5;
     max-width: 100vw;
+    min-width: 500px;
 
     .element{
         display: flex;
@@ -77,4 +78,10 @@
             }
         }
     }
+}
+
+
+.Image{
+    width: 100px;
+    height: 100px;
 }

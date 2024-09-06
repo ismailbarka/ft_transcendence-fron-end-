@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 // export default layout
 import type { Metadata } from "next";
+import loadMyData from '@/Components/LoadMyData'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,6 +18,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  loadMyData();
   return (
     <html lang="en">
       <body>

@@ -1,40 +1,41 @@
 "use client";
 import { useContext, useState, useEffect } from 'react';
-import classes from './changeUsername.module.css';
+import classes from './change.module.css';
 import axios from 'axios';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
 
-const ChangeUsername = ({ setCurrentPage }) => {
-  const [oldUsername, setOldUsername] = useState("");
-  const [newUsername, setNewUsername] = useState("");
+const ChangeLastname = ({setCurrentPage}) => {
+
+  const [oldLastName, setOldLastName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
   const [error, setError] = useState([]);
 
   const {UserData, updateUserData} = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!UserData.username) {
+      if (!UserData.last_name) {
         await loadMyData();
       }
-      setOldUsername(UserData.username);
+      setOldLastName(UserData.last_name);
     };
 
     fetchData();
   }, []);
 
   const handleInputChange = (e) => {
-    setNewUsername(e.target.value);
+    setNewLastName(e.target.value);
     setError([]);
   };
 
 
-  const handleChangeUsername  = async() =>{
+  const handleChangeLastName  = async() =>{
     try {
       const res = await axios.patch(
         "http://localhost:8000/api/users/me/",
         {
-          username: newUsername,
+          last_name: newLastName,
         },
         {
           headers: {
@@ -44,10 +45,10 @@ const ChangeUsername = ({ setCurrentPage }) => {
         }
       );
       console.log(res.data);
-      updateUserData({...UserData, username: newUsername})
+      updateUserData({...UserData, last_name: newLastName})
       setCurrentPage("");
     } catch (err) {
-      setError(err.response.data.username);
+      setError(err.response.data.last_name);
     }
   }
 
@@ -55,13 +56,13 @@ const ChangeUsername = ({ setCurrentPage }) => {
     <div className={classes.NotifNotif}>
       <div className={classes.window} onClick={(e) => { e.preventDefault(); e.stopPropagation(); console.log("test") }}>
         <div className={classes.element}>
-          <label className={classes.label}>old username:</label>
-          <input disabled={true} className={classes.input} value={oldUsername} />
-          <label className={classes.label}>new username:</label>
-          <input className={classes.input} value={newUsername} onChange={handleInputChange} />
+          <label className={classes.label}>Old LastName:</label>
+          <input disabled={true} className={classes.input} value={oldLastName} />
+          <label className={classes.label}>New LastName:</label>
+          <input className={classes.input} value={newLastName} onChange={handleInputChange} />
           {error.length > 0 && error.map((item, index) => <span className={classes.errors} key={index}>{item}</span>)}
           <div className={classes.buttonContainer}>
-            <button className={classes.button} onClick={handleChangeUsername}>Update Infos</button>
+            <button className={classes.button} onClick={handleChangeLastName}>Update Infos</button>
             <button className={classes.button} onClick={() => setCurrentPage("")}>Cancel</button>
           </div>
         </div>
@@ -70,4 +71,4 @@ const ChangeUsername = ({ setCurrentPage }) => {
   );
 };
 
-export default ChangeUsername;
+export default ChangeLastname;

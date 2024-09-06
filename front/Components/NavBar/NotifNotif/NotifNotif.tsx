@@ -17,62 +17,6 @@ const NotifNotif = ({setNotifOpen}) => {
             <p>12 min ago</p>
           </div>
         </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>12 min ago</p>
-          </div>
-        </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>12 min ago</p>
-          </div>
-        </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>1 min ago</p>
-          </div>
-        </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>1 min ago</p>
-          </div>
-        </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>1 min ago</p>
-          </div>
-        </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>1 min ago</p>
-          </div>
-        </div>
-        <div className={classes.element}>
-          <Image alt="" src={avatar} className={classes.avatar}/>
-          <div>
-            <h2>title</h2>
-            <p>this this the message</p>
-            <p>1 min ago</p>
-          </div>
-        </div>
       </div>
     </div>
   );

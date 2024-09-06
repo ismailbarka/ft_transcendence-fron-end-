@@ -1,40 +1,28 @@
 "use client";
 import { useContext, useState, useEffect } from 'react';
-import classes from './changeUsername.module.css';
+import classes from './change.module.css';
 import axios from 'axios';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
 
-const ChangeUsername = ({ setCurrentPage }) => {
-  const [oldUsername, setOldUsername] = useState("");
-  const [newUsername, setNewUsername] = useState("");
+const ChangePassword = ({ setCurrentPage }) => {
+  const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState([]);
 
   const {UserData, updateUserData} = useContext(UserContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!UserData.username) {
-        await loadMyData();
-      }
-      setOldUsername(UserData.username);
-    };
-
-    fetchData();
-  }, []);
-
   const handleInputChange = (e) => {
-    setNewUsername(e.target.value);
+    setNewPassword(e.target.value);
     setError([]);
   };
 
 
-  const handleChangeUsername  = async() =>{
+  const handleChangePassword  = async() =>{
     try {
       const res = await axios.patch(
         "http://localhost:8000/api/users/me/",
         {
-          username: newUsername,
+          password: newPassword,
         },
         {
           headers: {
@@ -43,11 +31,9 @@ const ChangeUsername = ({ setCurrentPage }) => {
           },
         }
       );
-      console.log(res.data);
-      updateUserData({...UserData, username: newUsername})
       setCurrentPage("");
     } catch (err) {
-      setError(err.response.data.username);
+      setError(err.response.data.password);
     }
   }
 
@@ -55,13 +41,13 @@ const ChangeUsername = ({ setCurrentPage }) => {
     <div className={classes.NotifNotif}>
       <div className={classes.window} onClick={(e) => { e.preventDefault(); e.stopPropagation(); console.log("test") }}>
         <div className={classes.element}>
-          <label className={classes.label}>old username:</label>
-          <input disabled={true} className={classes.input} value={oldUsername} />
-          <label className={classes.label}>new username:</label>
-          <input className={classes.input} value={newUsername} onChange={handleInputChange} />
+          <label className={classes.label}>Old Password:</label>
+          <input disabled={true} className={classes.input} value="******" />
+          <label className={classes.label}>New Password:</label>
+          <input className={classes.input} value={newPassword} onChange={handleInputChange} />
           {error.length > 0 && error.map((item, index) => <span className={classes.errors} key={index}>{item}</span>)}
           <div className={classes.buttonContainer}>
-            <button className={classes.button} onClick={handleChangeUsername}>Update Infos</button>
+            <button className={classes.button} onClick={handleChangePassword}>Update Infos</button>
             <button className={classes.button} onClick={() => setCurrentPage("")}>Cancel</button>
           </div>
         </div>
@@ -70,4 +56,4 @@ const ChangeUsername = ({ setCurrentPage }) => {
   );
 };
 
-export default ChangeUsername;
+export default ChangePassword;
