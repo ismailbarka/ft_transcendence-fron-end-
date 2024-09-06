@@ -48,7 +48,7 @@ export const ChatFriends = () => {
       </div>
     {/* map throw the friends and put them in the friend field 1 by 1 just 5 times*/}
     {friends.map((friend, index) => {
-      if(index < 99){
+      if(index < 15){
         return <FriendField key={friend.id} userName={friend.username} AvatarImg={avatar} lastMsg="{friend.email}"/>
       }
     })}

@@ -4,7 +4,7 @@ import classes from './Menu.module.css'
 import Image from 'next/image'
 import homeImage from "../../public/homeIcon.svg"
 import chatImage from "../../public/chatIcon.svg"
-import gameImage from "../../public/racketicon.svg"
+// import gameImage from "../../public/racketicon.svg"
 import friendsImage from "../../public/friendsIcon.svg"
 import placeImage from "../../public/placeIcon.svg"
 import settingsImage from "../../public/settingsIcon.svg"
@@ -24,10 +24,10 @@ const choices: Choice[] = [{
   name : "Chat",
   imageUrl : chatImage
 },
-{
-  name : "Game",
-  imageUrl : gameImage
-},
+// {
+//   name : "Game",
+//   imageUrl : gameImage
+// },
 {
   name : "LeaderBoard",
   imageUrl : placeImage
