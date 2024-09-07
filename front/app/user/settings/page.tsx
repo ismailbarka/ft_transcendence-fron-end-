@@ -11,11 +11,12 @@ import axios from 'axios';
 import Image from 'next/image';
 import ChangeTFA from '@/Components/Settings/ChangeTFA/ChangeTFA';
 import loadMyData from '@/Components/LoadMyData';
+import { useRouter } from 'next/navigation';
 
 const Settings: React.FC = () => {
 
   const [currentPage, setCurrentPage] = React.useState("");
-
+  const router = useRouter();
   const {UserData, updateUserData} = React.useContext(UserContext);
 
   React.useEffect(() => {
