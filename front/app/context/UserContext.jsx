@@ -13,6 +13,7 @@ export const UserContextProvider = ({ children }) => {
     first_name: "",
     last_name: "",
     password: "",
+    TFA: false,
   });
 
 

@@ -18,8 +18,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  loadMyData();
   return (
     <html lang="en">
       <body>

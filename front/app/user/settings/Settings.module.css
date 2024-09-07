@@ -17,6 +17,7 @@
 
         .label{
             font-size: 30px;
+            width: 200px;
         }
         .inputProvisoir{
             border-radius: 10px;

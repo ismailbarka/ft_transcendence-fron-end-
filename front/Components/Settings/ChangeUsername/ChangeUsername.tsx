@@ -15,7 +15,7 @@ const ChangeUsername = ({ setCurrentPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.username) {
-        await loadMyData();
+        await loadMyData(localStorage.getItem("access"), updateUserData);
       }
       setOldUsername(UserData.username);
     };

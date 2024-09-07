@@ -19,7 +19,7 @@ const ImageUpload = ({ setCurrentPage }) => {
       setIsLoading(true); 
       try {
         if (!UserData.first_name) {
-          await loadMyData();
+          await loadMyData(localStorage.getItem("access"), updateUserData);
         }
         setOldImage(UserData.avatar);
       } catch (err) {

@@ -9,6 +9,7 @@ import ChangePassword from '@/Components/Settings/ChangePassword/ChangePassword'
 import { UserContext } from "@/app/context/UserContext";
 import axios from 'axios';
 import Image from 'next/image';
+import ChangeTFA from '@/Components/Settings/ChangeTFA/ChangeTFA';
 
 const Settings: React.FC = () => {
   const { UserData } = React.useContext(UserContext);
@@ -49,13 +50,22 @@ const Settings: React.FC = () => {
       </div>
 
       <div className={classes.editContainer} onClick={() => setCurrentPage("firstname")}>
-        {/* First Name Input with Label */}
         <label className={classes.label} htmlFor="firstnameInput">First Name:</label>
         <input
           id="firstnameInput"
           disabled={true}
           className={classes.inputProvisoir}
           value={UserData.first_name ? UserData.first_name : "insert new firstname"}
+        />
+        <button className={classes.editButton}>Edit</button>
+      </div>
+      <div className={classes.editContainer} onClick={() => setCurrentPage("TFA")}>
+        <label className={classes.label} htmlFor="TFA">TFA:</label>
+        <input
+          id="TFA"
+          disabled={true}
+          className={classes.inputProvisoir}
+          value={`2FA now is ${UserData.TFA ? "ON" : "OFF"}`}
         />
         <button className={classes.editButton}>Edit</button>
       </div>
@@ -72,12 +82,12 @@ const Settings: React.FC = () => {
         <button className={classes.editButton}>Edit</button>
       </div>
 
-      {/* Render Components Conditionally */}
       {currentPage === "avatar" && <ChangeImage setCurrentPage={setCurrentPage}/>}
       {currentPage === "username" && <ChangeUsername setCurrentPage={setCurrentPage} />}
       {currentPage === "password" && <ChangePassword setCurrentPage={setCurrentPage} />}
       {currentPage === "firstname" && <ChangeFirstname setCurrentPage={setCurrentPage} />}
       {currentPage === "lastname" && <ChangeLastname setCurrentPage={setCurrentPage} />}
+      {currentPage === "TFA" && <ChangeTFA setCurrentPage={setCurrentPage} />}
     </div>
   );
 };
