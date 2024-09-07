@@ -6,6 +6,7 @@ import classes from "./imageUpload.module.css";
 import loadMyData from "@/Components/LoadMyData";
 import NextImage from "next/image";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const ImageUpload = ({ setCurrentPage }) => {
   const { UserData, updateUserData } = useContext(UserContext);
@@ -13,13 +14,16 @@ const ImageUpload = ({ setCurrentPage }) => {
   const [newImage, setNewImage] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true); 
       try {
         if (!UserData.first_name) {
-          await loadMyData(localStorage.getItem("access"), updateUserData);
+          const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+          if(res !== 0)
+            router.push("/login");
         }
         setOldImage(UserData.avatar);
       } catch (err) {

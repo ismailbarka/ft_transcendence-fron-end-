@@ -10,10 +10,26 @@ import { UserContext } from "@/app/context/UserContext";
 import axios from 'axios';
 import Image from 'next/image';
 import ChangeTFA from '@/Components/Settings/ChangeTFA/ChangeTFA';
+import loadMyData from '@/Components/LoadMyData';
 
 const Settings: React.FC = () => {
-  const { UserData } = React.useContext(UserContext);
+
   const [currentPage, setCurrentPage] = React.useState("");
+
+  const {UserData, updateUserData} = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      if (!UserData.username) {
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res === 0){
+          router.push("/login");
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className={classes.Settings}>

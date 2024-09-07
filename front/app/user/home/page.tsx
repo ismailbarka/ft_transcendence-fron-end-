@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import classes from "./home.module.css"
 import PlayerInfos from '@/Components/PlayerInfos/PlayerInfos'
 import WeeklyAttendance from '@/Components/weeklyAttendance/WeeklyAttendance'
@@ -9,8 +9,21 @@ import Friends from '@/Components/Friends/Friends'
 import { Achievements } from '@/Components/Achievements/Achievements'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/app/context/UserContext'
+import loadMyData from '@/Components/LoadMyData'
 const Home = () => {
-  
+  const {UserData, updateUserData} = useContext(UserContext);
+  const router = useRouter();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!UserData.username) {
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res !== 0)
+          router.push("/login");
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className={classes.home}>
       <div className={classes.box1}><PlayerInfos/></div>

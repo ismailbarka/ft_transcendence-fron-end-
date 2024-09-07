@@ -16,7 +16,10 @@ const ChangeFirstname = ({setCurrentPage}) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.first_name) {
-        await loadMyData(localStorage.getItem("access"), updateUserData);
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res === 0){
+          router.push("/login");
+        }
       }
       setOldFirstName(UserData.first_name);
     };

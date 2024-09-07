@@ -6,6 +6,7 @@ import { UserContext } from '@/app/context/UserContext';
 import Image from 'next/image';
 import QRCode from 'react-qr-code';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const ChangeTFA = ({ setCurrentPage }) => {
   const { UserData, updateUserData } = useContext(UserContext);
@@ -13,11 +14,14 @@ const ChangeTFA = ({ setCurrentPage }) => {
   const [otpUri, setOtpUri] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.last_name) {
-        await loadMyData(localStorage.getItem("access"), updateUserData);
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res !== 0)
+          router.push("/login");
       }
     };
 

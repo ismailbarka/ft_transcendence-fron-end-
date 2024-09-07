@@ -4,19 +4,22 @@ import classes from './change.module.css';
 import axios from 'axios';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
+import { useRouter } from 'next/navigation';
 
 const ChangeLastname = ({setCurrentPage}) => {
 
   const [oldLastName, setOldLastName] = useState("");
   const [newLastName, setNewLastName] = useState("");
   const [error, setError] = useState([]);
-
+  const router = useRouter();
   const {UserData, updateUserData} = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.last_name) {
-        await loadMyData(localStorage.getItem("access"), updateUserData);
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res !== 0)
+          router.push("/login");
       }
       setOldLastName(UserData.last_name);
     };
