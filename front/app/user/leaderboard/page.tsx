@@ -35,12 +35,16 @@ const data = [
 
 const LeaderBoard: React.FC = () => {
 
-    const {UserData, updateUserData} = useContext(UserContext);
-
+    const {UserData, updateUserData, updateCurrentPage } = useContext(UserContext);
+    const router = useRouter();
     useEffect(() => {
+      updateCurrentPage("LeaderBoard");
+  
       const fetchData = async () => {
         if (!UserData.username) {
-          await loads
+          const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+          if(res !== 0)
+            router.push("/login");
         }
       };
   

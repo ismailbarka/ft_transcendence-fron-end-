@@ -1,50 +1,53 @@
-import axios from "axios";
+"use client";
+import Link from 'next/link';
+import classes from './Logout.module.css';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect } from 'react';
+import loadMyData from '@/Components/LoadMyData';
+import { UserContext } from '@/app/context/UserContext';
 
-const loadMyData = async (access, refresh, updateUserData) => {
-  console.log(`Bearer ${access}`);
-  console.log("test");
+const Logout: React.FC = () => {
+  const router = useRouter();
+  const { UserData, updateUserData,updateCurrentPage } = useContext(UserContext);
 
-  try {
-    // Verify if the access token is still valid
-    const res = await axios.post("http://localhost:8000/api/auth/token/verify/", {
-      token: access,
-    });
-    console.log(res.data);
-  } catch (err) {
-    // If the access token is invalid, attempt to refresh it
+  useEffect(() => {
+    updateCurrentPage("Logout");
+
+    const fetchData = async () => {
+      if (!UserData.username) {
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res !== 0)
+          router.push("/login");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/token/refresh/", {
-        refresh: refresh,
+      const res = await axios.post("http://localhost:8000/api/auth/token/blacklist/", {
+        refresh: localStorage.getItem("refresh"),
       });
-      console.log("New Access Token: " + res.data.access);
-      console.log("New Refresh Token: " + res.data.refresh);
-
-      // Store the new access token in localStorage
-      localStorage.setItem("access", res.data.access);
-      access = res.data.access; // Update the access variable to use the new token
-    } catch (errone) {
-      console.error("Error refreshing token:", errone);
-      return; // Exit if refreshing token fails
+      localStorage.removeItem("refresh");
+      localStorage.removeItem("access");
+    } catch (err) {
+      console.error("Error during logout:", err);
+    } finally {
+      router.push("/login");
     }
-  }
+  };
 
-  try {
-    // Fetch user data using the (possibly refreshed) access token
-    const res = await axios.get("http://localhost:8000/api/users/me/", {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    });
-    updateUserData({
-      id: res.data.id,
-      username: res.data.username,
-      avatar: res.data.avatar,
-      first_name: res.data.first_name,
-      last_name: res.data.last_name,
-    });
-  } catch (err) {
-    console.error("Error fetching user data:", err);
-  }
+  return (
+    <div className={classes.logout}>
+      <h1>Logout?</h1>
+      <div className={classes.yesOrNo}>
+        <Link href="/user/home" className={classes.buttonNo}>No</Link>
+        <Link href="#" onClick={handleLogout} className={classes.buttonYes}>Yes</Link>
+      </div>
+    </div>
+  );
 };
 
-export default loadMyData;
+export default Logout;

@@ -11,9 +11,11 @@ import { useRouter } from 'next/navigation'
 import { UserContext } from '@/app/context/UserContext'
 import loadMyData from '@/Components/LoadMyData'
 const Home = () => {
-  const {UserData, updateUserData} = useContext(UserContext);
+  const {UserData, updateUserData, updateCurrentPage } = useContext(UserContext);
   const router = useRouter();
   useEffect(() => {
+    updateCurrentPage("Home");
+
     const fetchData = async () => {
       if (!UserData.username) {
         const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);

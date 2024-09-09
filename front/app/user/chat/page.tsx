@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import classes from './chat.module.css'
 import Image from 'next/image'
 import searchImage from '../../../public/Search icon.svg'
@@ -7,13 +7,16 @@ import { ChatList } from '@/Components/chatList/ChatList'
 import { ChatField } from '@/Components/ChatField/ChatField'
 import { ChatDetails } from '@/Components/ChatDetails/ChatDetails'
 import { useRouter } from 'next/navigation'
+import { UserContext } from '@/app/context/UserContext'
+
 
 
 const Chat = () => {
-
+  const { updateCurrentPage } = useContext(UserContext);
   const router = useRouter();
 
   useEffect(() => {
+    updateCurrentPage("Chat");
     const access = localStorage.getItem("access");
     if(!access)
       router.push("/login");

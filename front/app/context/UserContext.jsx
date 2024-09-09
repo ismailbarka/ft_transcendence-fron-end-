@@ -15,11 +15,12 @@ export const UserContextProvider = ({ children }) => {
     password: "",
     TFA: false,
   });
+  const [currentPage, setCurrentPage] = useState("");
+
+
 
 
   const setUserInfos = async (access) => {
-    console.log(`Bearer ${access}`);
-    
     try {
       const res = await axios.get("http://localhost:8000/api/users/me/", {
         headers: {
@@ -42,13 +43,16 @@ export const UserContextProvider = ({ children }) => {
   const updateUserData = (data) => {
     setUserData(data);
   };
+  const updateCurrentPage = (pageName) => {
+    setCurrentPage(pageName);
+  };
 
   if (!isMounted) {
     return null;
   }
 
   return (
-    <UserContext.Provider value={{ UserData, updateUserData }}>
+    <UserContext.Provider value={{ UserData, updateUserData, currentPage, updateCurrentPage }}>
       {children}
     </UserContext.Provider>
   );

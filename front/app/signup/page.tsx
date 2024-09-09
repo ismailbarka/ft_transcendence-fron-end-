@@ -10,8 +10,10 @@ import { useRouter } from 'next/navigation';
 
 // Define the validation schema using zod
 const schema = z.object({
-  username: z.string().min(6, { message: "username must be at least 6 characters" }),
+  username: z.string().min(6, { message: "Username must be at least 6 characters" }),
   email: z.string().email({ message: "Invalid email address" }),
+  first_name: z.string().min(6, { message: "First Name must be at least 6 characters" }),
+  last_name: z.string().min(6, { message: "Last Name must be at least 6 characters" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
   confermPassword: z.string().min(6, { message: "Password must be at least 6 characters" })
 }).refine((data) => data.password === data.confermPassword, {
@@ -34,20 +36,24 @@ const Signup = () => {
 
   const [isloading, setIsloading] = useState(false);
   const [username, setUsername] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confermPassword, setConfermPassword] = useState("");
-  const [errors, setErrors] = useState({ username: "", email: "", password: "", confermPassword: "" });
+  const [errors, setErrors] = useState({ username: "", email: "", password: "", confermPassword: "", first_name: "", last_name: ""});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsloading(true);
-    const result = schema.safeParse({ username, email, password, confermPassword });
+    const result = schema.safeParse({ username, email, password, confermPassword, first_name, last_name });
 
     if (!result.success) {
       const errorMessages = result.error.flatten().fieldErrors;
       setErrors({
         username: errorMessages.username ? errorMessages.username[0] : "",
+        first_name: errorMessages.first_name ? errorMessages.first_name[0] : "",
+        last_name: errorMessages.last_name ? errorMessages.last_name[0] : "",
         email: errorMessages.email ? errorMessages.email[0] : "",
         password: errorMessages.password ? errorMessages.password[0] : "",
         confermPassword: errorMessages.confermPassword ? errorMessages.confermPassword[0] : "",
@@ -59,12 +65,14 @@ const Signup = () => {
     try {
       const res = await axios.post("http://localhost:8000/api/users/", {
         "username": username,
+        "first_name": first_name,
+        "last_name": last_name,
         "password": password,
         "avatar": "https://picsum.photos/1024/1024",
         "email": email
       });
       console.log(res);
-      router.push("/user/home");  // Redirect only after a successful signup
+      router.push("/login");
     } catch (err) {
       console.log(err.response.data);
       setErrors({ ...errors, ...err.response.data });
@@ -85,7 +93,7 @@ const Signup = () => {
               <input
                 disabled={isloading}
                 className={errors["username"] ? classes.inputError : classes.input}
-                placeholder="username"
+                placeholder="Username"
                 type="username"
                 onChange={(e) => { setUsername(e.target.value); setErrors({ ...errors, "username": "" }); }}
               />
@@ -96,8 +104,32 @@ const Signup = () => {
             <>
               <input
                 disabled={isloading}
+                className={errors["first_name"] ? classes.inputError : classes.input}
+                placeholder="First Name"
+                type="text"
+                onChange={(e) => { setFirst_name(e.target.value); setErrors({ ...errors, "first_name": "" }); }}
+              />
+              <div className={classes.errorMsgContainer}>
+                {errors["first_name"] && <p className={classes.errorMsg}>{errors["first_name"]}</p>}
+              </div>
+            </>
+            <>
+              <input
+                disabled={isloading}
+                className={errors["last_name"] ? classes.inputError : classes.input}
+                placeholder="Last Name"
+                type="text"
+                onChange={(e) => { setLast_name(e.target.value); setErrors({ ...errors, "last_name": "" }); }}
+              />
+              <div className={classes.errorMsgContainer}>
+                {errors["last_name"] && <p className={classes.errorMsg}>{errors["last_name"]}</p>}
+              </div>
+            </>
+            <>
+              <input
+                disabled={isloading}
                 className={errors["email"] ? classes.inputError : classes.input}
-                placeholder="email"
+                placeholder="Email"
                 type="email"
                 onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, "email": "" }); }}
               />
@@ -121,7 +153,7 @@ const Signup = () => {
               <input
                 disabled={isloading}
                 className={errors["confermPassword"] ? classes.inputError : classes.input}
-                placeholder="confirm password"
+                placeholder="Confirm Password"
                 type="password"
                 onChange={(e) => { setConfermPassword(e.target.value); setErrors({ ...errors, "confermPassword": "" }); }}
               />
@@ -131,8 +163,8 @@ const Signup = () => {
             </>
             <button disabled={isloading} className={classes.button} type='submit'>Signup</button>
           </form>
-          <p className={classes.welcomeMsg}>
-            If you don't have an account <Link href="/" className={classes.signUp}>SignUp</Link>
+          <p className={classes.signupP}>
+            If you already have an account <Link href="/login" className={classes.signUp}>SignUp</Link>
           </p>
         </div>
         <div className={classes.SignupImage}>

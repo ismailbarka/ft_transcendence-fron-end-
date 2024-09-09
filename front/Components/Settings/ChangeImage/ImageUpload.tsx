@@ -34,7 +34,7 @@ const ImageUpload = ({ setCurrentPage }) => {
     };
 
     fetchData();
-  }, [UserData]);
+  }, []);
 
   const validateImage = (file: File) => {
     const validTypes = ["image/jpeg", "image/png", "image/gif"];

@@ -1,65 +1,78 @@
-.ChatFriends{
-
+.ChatFriends {
     flex: 1;
-    overflow: scroll;
+    overflow-y: auto; /* Changed to auto for better scrolling behavior */
 
-    .search{
+    .search {
         display: flex;
         align-items: center;
         gap: 20px;
         padding: 20px;
 
-
-        .searchBar{
+        .searchBar {
             flex: 1;
             padding: 10px;
             background: #DAC0A3;
             display: flex;
             align-items: center;
             gap: 20px;
-            border-radius: 10px;
+            border-radius: 6px;
 
-
-            .input{
+            .input {
                 background-color: transparent;
                 border: none;
                 outline: none;
                 flex: 1;
+                font-size: 16px; /* Added for better readability */
             }
         }
-        .add{
+
+        .add {
             background: #DAC0A3;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 6px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centered content inside */
+            font-size: 18px; /* Adjusted font size for better visibility */
         }
     }
-    .item{
+
+    .item {
         display: flex;
         align-items: center;
         gap: 10px;
         padding: 10px;
         cursor: pointer;
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #f0f0f0; /* Changed to a lighter color for better contrast */
+        transition: background-color 0.3s ease; /* Smooth transition effect */
 
-        .imageAvatar{
+        &:hover {
+            background-color: #f0f0f0; /* Background color change on hover */
+        }
+
+        .imageAvatar {
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            object-fit: cover; /* Ensures image is properly displayed */
         }
-        .text{
+
+        .text {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        
-            .span{
+            gap: 5px; /* Reduced gap for a more compact appearance */
+
+            .span {
                 font-weight: 500;
+                font-size: 16px; /* Adjusted for better readability */
             }
-            .message{
+
+            .message {
                 font-weight: 300;
                 font-size: 14px;
+                color: #666; /* Added color for better contrast */
             }
         }
-        
     }
 }

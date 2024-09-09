@@ -1,87 +1,93 @@
-.container{
+.container {
     display: flex;
-    flex-direction: column;
-    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    flex: 1;
     @media screen and (max-width: 720px) {
-        lex-direction: row;
 
     }
-    .buttons1{
-        flex: 1;
-        overflow-y: scroll;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(0, 0, 0, 0.111) #11111100;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        @media screen and (max-width: 720px) {
-            gap: 10px;
-        }
+}
+
+.buttons1 {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.111) #11111100;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    @media screen and (max-width: 720px) {
+        gap: 10px;
+    }
+}
+
+.imgContainer {
+    width: 60px;
+    height: 60px;
+    background-color: #DAC0A3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    @media screen and (max-width: 720px) {
+        width: 30px;
+        height: 30px;
+    }
+
+}
+
+.img {
+    width: 30px;
+    height: 30px;
+    @media screen and (max-width: 720px) {
+        width: 15px;
+        height: 15px;
+    }
+    
+}
+
+.title {
+    margin-left: 20px;
+    @media screen and (max-width: 1000px) {
+        display: none;
+    }
+
+}
+
+.button, .buttonSelected {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    @media screen and (max-width: 720px) {
+        padding: 0px;
+        margin: 5px;
+    }
+    &:hover {
         .imgContainer{
-            width: 60px;
-            height: 60px;
-            @media screen and (max-width: 720px) {
-                width: 30px;
-                height: 30px;
-            }
-            background-color: #DAC0A3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 13px;
-            .img{
-                width: 30px;
-                height: 30px;
-                @media screen and (max-width: 720px) {
-                    width: 15px;
-                    height: 15px;
-                }
-            }
+            transition: background-color 0.5s ease, transform 0.5s ease;
+            transform: scale(1.025);
         }
         .title{
-            margin-left: 20px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            @media screen and (max-width: 1000px) {
-                display: none;
-            }
+            transform: scale(1.025);
+        }
+    }
+}
 
-        }
-        .button{
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 10px;    
-            border-radius: 13px;
-            @media screen and (max-width: 720px) {
-                padding: 0px;
-                margin: 5px;
-            }
-            &:hover{
-                background-color: #dac0a358;
-                .imgContainer{
-                    border: 1px solid black;
-                }
-            }
-        }
-        .buttonSlelected{
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            @media screen and (max-width: 720px) {
-                padding: 0px;
-                margin: 5px;   
-            }
-            border-radius: 13px;
-                background-color: #DAC0A3;
-            .imgContainer{
-                    background-color: #102C57;
-                }
+.button {
+    background-color: transparent;
+    color: #000;
+    &:hover {
+        background-color: #DAC0A358;
+    }
+}
 
-        }
+.buttonSelected {
+    background-color: #DAC0A3;
+    color: #000;
+    .imgContainer {
+        background-color: #102C57;
     }
 }

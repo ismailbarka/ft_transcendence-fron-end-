@@ -103,6 +103,26 @@ const Login: React.FC = () => {
     }
   };
 
+  // const handleFT = async () =>{
+  //   try {
+  //     const res = await axios.post("https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-fb265bee72601a74f4ca0873c11a8ed72d06d29a34720421809c6a29d940b430&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2F42&response_type=code", {
+  //       username,
+  //       password,
+  //     });
+  //     localStorage.setItem("refresh", res.data.refresh);
+  //     localStorage.setItem("access", res.data.access);
+  //     await setUserInfos(res.data.access);
+  //     router.push("/user/home");
+  //   } catch (err: any) {
+  //     setErrors((prevErrors) => ({ ...prevErrors, ...err.response.data }));
+  //     if (err.response.data.otp_code) {
+  //       setErrors((prevErrors) => ({ ...prevErrors, otp_code: err.response.data.otp_code[0] }));
+  //     }
+  //   } finally {
+  //     setIsloading(false);
+  //   }
+  // }
+
   return loaded ? (
     <div className={classes.Container}>
       <div className={classes.loginInput}>
@@ -134,9 +154,10 @@ const Login: React.FC = () => {
 
           <button disabled={isloading} className={classes.button} type="submit">Login</button>
         </form>
-        <p className={classes.welcomeMsg}>
+        <p className={classes.signupP}>
           If you don't have an account <Link href="/signup" className={classes.signUp}>SignUp</Link>
         </p>
+        <Link href="https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-fb265bee72601a74f4ca0873c11a8ed72d06d29a34720421809c6a29d940b430&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2F42&response_type=code">42</Link>
       </div>
       <div className={classes.loginImage}>
         <Image src={playerSigningInImage} className={classes.PlayerSigningInStyle} alt="Player Signing In" />

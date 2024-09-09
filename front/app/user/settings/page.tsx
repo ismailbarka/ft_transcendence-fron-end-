@@ -12,18 +12,20 @@ import Image from 'next/image';
 import ChangeTFA from '@/Components/Settings/ChangeTFA/ChangeTFA';
 import loadMyData from '@/Components/LoadMyData';
 import { useRouter } from 'next/navigation';
+import ImageUpload from '@/Components/Settings/ChangeImage/ImageUpload';
 
 const Settings: React.FC = () => {
 
   const [currentPage, setCurrentPage] = React.useState("");
   const router = useRouter();
-  const {UserData, updateUserData} = React.useContext(UserContext);
+  const { UserData, updateUserData, updateCurrentPage } = React.useContext(UserContext);
 
   React.useEffect(() => {
+    updateCurrentPage("Settings");
     const fetchData = async () => {
       if (!UserData.username) {
         const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
-        if(res === 0){
+        if(res !== 0){
           router.push("/login");
         }
       }
@@ -99,7 +101,7 @@ const Settings: React.FC = () => {
         <button className={classes.editButton}>Edit</button>
       </div>
 
-      {currentPage === "avatar" && <ChangeImage setCurrentPage={setCurrentPage}/>}
+      {currentPage === "avatar" && <ImageUpload setCurrentPage={setCurrentPage}/>}
       {currentPage === "username" && <ChangeUsername setCurrentPage={setCurrentPage} />}
       {currentPage === "password" && <ChangePassword setCurrentPage={setCurrentPage} />}
       {currentPage === "firstname" && <ChangeFirstname setCurrentPage={setCurrentPage} />}
