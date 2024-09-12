@@ -2,63 +2,71 @@
     display: flex;
     flex: 1;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 10px;
-    overflow-y: scroll;
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: rgba(0, 0, 0, 0.111) #11111100; /* Firefox */
+    justify-content: center;
+    width: 100%;
+    .container{
 
-    /* Scrollbar styling for WebKit browsers (Chrome, Safari) */
-    &::-webkit-scrollbar {
-        width: 8px; /* Width of the scrollbar */
-    }
-    &::-webkit-scrollbar-track {
-        background: #11111100; /* Background of the scrollbar track */
-        border-radius: 6px; /* Rounded corners for the track */
-    }
-    &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.111); /* Color of the scrollbar thumb */
-        border-radius: 6px; /* Rounded corners for the thumb */
-    }
-    &::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.2); /* Hover state for the thumb */
-    }
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 10px;
+        overflow-y: scroll;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: rgba(0, 0, 0, 0.111) #11111100; /* Firefox */
+        padding-top: 20px;
+        max-width: 1220px;
 
-    .box1, .box2, .box3, .box4, .box5, .box6 {
-        width: 370px;
-        @media screen and (max-width: 720px) {
-            width: 100%;
+        /* Scrollbar styling for WebKit browsers (Chrome, Safari) */
+        &::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
         }
-        @media screen and (min-width: 1980px) {
-            width: 500px;
+        &::-webkit-scrollbar-track {
+            background: #11111100; /* Background of the scrollbar track */
+            border-radius: 6px; /* Rounded corners for the track */
         }
-        @media screen and (min-width: 720px) {
-
-            transition: background-color 0.5s ease, transform 0.5s ease;
-            &:hover {
-                transform: scale(1.025);
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.111); /* Color of the scrollbar thumb */
+            border-radius: 6px; /* Rounded corners for the thumb */
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.2); /* Hover state for the thumb */
+        }
+        .box1, .box2, .box3, .box4, .box5, .box6 {
+            width: 370px;
+            @media screen and (max-width: 880px) {
+                width: 100%;
             }
+            @media screen and (min-width: 880px) {
+
+                transition: background-color 0.5s ease, transform 0.5s ease;
+                &:hover {
+                    transform: scale(1.025);
+                }
+            }
+            box-shadow: rgba(149, 157, 165, 0.1) 0px 4px 4px;
         }
-    }
 
-    .box1, .box2, .box3 {
-        height: 236px;
-    }
-
-    .box4, .box5, .box6 {
-        height: 512px;
-    }
-
-    .line {
-        width: 95%;
-        height: 45px;
-        @media screen and (max-width: 720px) {
-            width: 100%;
+        .box1, .box2, .box3 {
+            height: 236px;
         }
-    }
 
-    .box6 {
-        background-color: aquamarine;
+        .box4, .box5, .box6 {
+            height: 512px;
+        }
+
+        .line {
+            width: 95%;
+            height: 45px;
+            @media screen and (max-width: 720px) {
+                width: 100%;
+            }
+            box-shadow: rgba(149, 157, 165, 0.1) 0px 4px 4px;
+        }
+
+        .box6 {
+            background-color: aquamarine;
+        }
     }
 }

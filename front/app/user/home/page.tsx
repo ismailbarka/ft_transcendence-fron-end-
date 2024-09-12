@@ -28,13 +28,15 @@ const Home = () => {
   }, []);
   return (
     <div className={classes.home}>
-      <div className={classes.box1}><PlayerInfos/></div>
-      <div className={classes.box2}><WeeklyAttendance/></div>
-      <div className={classes.box3}><Rate/></div>
-      <div className={classes.line}><ProgressBar/></div>
-      <div className={classes.box4}><Friends/></div>
-      <div className={classes.box5}><Achievements/></div>
-      <div className={classes.box6}>lin6</div>
+      <div className={classes.container}>
+        <div className={classes.box1}><PlayerInfos/></div>
+        <div className={classes.box2}><WeeklyAttendance/></div>
+        <div className={classes.box3}><Rate/></div>
+        <div className={classes.line}><ProgressBar/></div>
+        <div className={classes.box4}><Friends/></div>
+        <div className={classes.box5}><Achievements/></div>
+        <div className={classes.box6}>lin6</div>
+      </div>
     </div>
   )
 }

@@ -1,74 +1,77 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .Settings {
     display: flex;
-    gap: 40px;
+    flex-direction: column;
     flex: 1;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    max-width: 700px;
     overflow-y: scroll;
-    margin: 20px;
+    scrollbar-width: none;
 
-    /* Scrollbar styling for WebKit browsers (Chrome, Safari) */
-    &::-webkit-scrollbar {
-        width: 8px; /* Width of the scrollbar */
+    .editProfileTitle{
+        font-size: 1.25rem;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.255);
+        padding: 20px;
     }
-    &::-webkit-scrollbar-track {
-        background: #F8F0E5; /* Background of the scrollbar track */
-        border-radius: 5px; /* Rounded corners for the track */
-    }
-    &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.3); /* Color of the scrollbar thumb */
-        border-radius: 5px; /* Rounded corners for the thumb */
-    }
-    &::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.5); /* Hover state for the thumb */
-    }
-    
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: rgba(0, 0, 0, 0.3) #F8F0E5; /* Firefox */
 
     .editContainer {
         display: flex;
-        flex-wrap: wrap;
+        width: 100%;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         gap: 20px;
-
-        .label {
-            font-size: 30px;
-            width: 200px;
+        padding: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.229);
+        @media screen and (max-width: 640px) {
+            flex-direction: column;
         }
+        
+        .label {
+            font-size: 1.5rem;
+            width: 200px;
+            @media screen and (max-width: 640px) {
+                width:auto;
+            }
+        }
+
         .inputProvisoir {
+
             border-radius: 5px;
             border: none;
             padding: 20px;
             max-width: 400px;
-            font-size: 30px;
-            background-color: #DAC0A3;
+            font-size: 1.5rem;
+            background: #F8F0E5;
             cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            height: 50px;
         }
         .imageProvisoir {
+            font-size: 1.5rem;
             border-radius: 5px;
             border: none;
-            padding: 20px;
             width: 400px;
-            font-size: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
+            
 
             .image {
                 border-radius: 50%;
             }
         }
         .editButton {
-            border-radius: 5px;
             border: none;
-            padding: 20px;
-            width: 100px;
-            font-size: 30px;
-            background-color: #DAC0A3;
+            font-size: 1.0625rem;
             cursor: pointer;
+            color: hsl(216.38deg 44.76% 41.18%);
+            background-color: transparent;
         }
     }
 

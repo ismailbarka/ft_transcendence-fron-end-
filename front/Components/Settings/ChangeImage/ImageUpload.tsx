@@ -120,23 +120,23 @@ const ImageUpload = ({ setCurrentPage }) => {
     <div className={classes.NotifNotif}>
       <div className={classes.window}>
         <div className={classes.element}>
-          <label className={classes.label}>Old Avatar:</label>
-          {oldImage && (
+          <label className={classes.label}>Change Profile Picture</label>
+          {/* {oldImage && (
             <NextImage alt="Old Avatar" src={oldImage} width={100} height={100} />
+          )} */}
+          {newImage ? (
+            <NextImage className={classes.nextImage} alt="New Avatar" src={newImage} width={100} height={100} />
+          ) : (
+            <NextImage className={classes.nextImage} alt="New Avatar" src={oldImage} width={100} height={100} />
           )}
-          <label className={classes.label}>New Avatar:</label>
           <input
             type="file"
             name="file"
             placeholder="Upload an Image"
             onChange={uploadImage}
             disabled={isLoading}
+            className={classes.inputFile}
           />
-          {newImage ? (
-            <NextImage alt="New Avatar" src={newImage} width={100} height={100} />
-          ) : (
-            <NextImage alt="New Avatar" src="/player.png" width={100} height={100} />
-          )}
           {error && <span className={classes.error}>{error}</span>}
           <div className={classes.buttonContainer}>
             <button
@@ -144,7 +144,7 @@ const ImageUpload = ({ setCurrentPage }) => {
               onClick={handleChangeAvatar}
               disabled={isLoading || !newImage}
             >
-              {isLoading ? "Updating..." : "Update Infos"}
+              {isLoading ? "Updating..." : "Done"}
             </button>
             <button
               className={classes.button}
