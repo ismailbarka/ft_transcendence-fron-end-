@@ -1,9 +1,6 @@
 "use client"
 import React, { useContext, useEffect } from 'react'
-<<<<<<< HEAD
 import { useState } from 'react'
-=======
->>>>>>> main
 import classes from './chat.module.css'
 import Image from 'next/image'
 import searchImage from '../../../public/Search icon.svg'
@@ -17,7 +14,12 @@ const Chat = () => {
   const router = useRouter();
   const [friend, onSelectFriendId] = useState(null);
   // usecontext to track the user's access token and 
+          
 
+
+
+
+  
   useEffect(() => {
     updateCurrentPage("Chat");
     const access = localStorage.getItem("access");
