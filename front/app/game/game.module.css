@@ -1,0 +1,38 @@
+.gameHead{
+    grid-area: header;
+}   
+
+.gamePage{
+    display: grid;
+    overflow: hidden;
+    background-color: rgb(143, 145, 40);
+    padding: 0;
+    margin: 0;
+    grid-template-areas:
+    'header'
+    'main';
+}
+
+.gameHead{
+    width: 100vw;
+    height: 10rem;
+    /* Made BY ABDELALI:CANISLUPUS */
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.stats{
+    background-color: black;
+    display:flex;
+    justify-content: space-around;
+}
+
+.Body{
+    width: 100%;
+    height: 80vh;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -27,7 +27,7 @@ export default function RootLayout({
                       <Menu/>
                   </div>
                   <div className={classes.Content}>
-                  {children}
+                  {children}    
                   </div>
               </div>
           </div>

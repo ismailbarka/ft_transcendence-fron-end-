@@ -1,5 +1,6 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useState } from 'react'
 import classes from './chat.module.css'
 import Image from 'next/image'
 import searchImage from '../../../public/Search icon.svg'
@@ -11,6 +12,8 @@ import avatar from '../../../public/chat/avatar.png'
 
 const Chat = () => {
   const router = useRouter();
+  const [friend, onSelectFriendId] = useState(null);
+  // usecontext to track the user's access token and 
 
   useEffect(() => {
     const access = localStorage.getItem("access");
@@ -20,13 +23,13 @@ const Chat = () => {
   return (
     <div className={classes.chat}>
       <div className={classes.ChatList}>
-        <ChatList userName={"smail"} avatar={avatar}/>
+        <ChatList userName={"smail"} avatar={avatar} onSelectFriend={onSelectFriendId}/>
       </div>
       <div className={classes.ChatField}>
-        <ChatField />
+        <ChatField FriendId={friend}/>
       </div>
       <div className={classes.ChatDetails}>
-        <ChatDetails />
+        <ChatDetails FriendId={friend}/>
       </div>
     </div>
   )

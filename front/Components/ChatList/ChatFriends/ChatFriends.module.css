@@ -1,6 +1,48 @@
+.item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .selectedItem {
+    background-color: #e0e0e0;
+  }
+  
+  .imageAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .span {
+    font-weight: bold;
+  }
+  
+  .message {
+    color: #666;
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  
+
 .ChatFriends{
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: hidden;
     .search{
         display: flex;
         align-items: center;
@@ -61,3 +103,4 @@
         
     }
 }
+

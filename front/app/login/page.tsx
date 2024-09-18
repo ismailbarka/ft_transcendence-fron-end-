@@ -77,6 +77,9 @@ const Login = () => {
       });
       localStorage.setItem("refresh", res.data.refresh);
       localStorage.setItem("access", res.data.access);
+      localStorage.setItem("username", res.data.username);
+      localStorage.setItem("id", res.data.id);
+      
       setUserInfos(res.data.access)
       router.push("/user/home");
     } catch (err) {

@@ -6,7 +6,7 @@ import avatar from '../../public/chat/avatar.png'
 import download from '../../public/chat/download.png'
 import Image from 'next/image'
 
-export const ChatDetails = () => {
+export const ChatDetails = ({FriendId}) => {
   return (
     <div className={classes.ChatDetails}>
       <div className={classes.users}>
