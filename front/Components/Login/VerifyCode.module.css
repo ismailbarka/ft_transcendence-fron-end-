@@ -1,0 +1,77 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    max-width: 90vw;
+    min-width: 300px;
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .input {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+  }
+  
+  .errorMsg {
+    color: #d9534f;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .button {
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    background-color: #5bc0de;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #31b0d5;
+  }
+  
+  .button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  

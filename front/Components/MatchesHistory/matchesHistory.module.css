@@ -1,57 +1,76 @@
-.Achivements{
+.Achivements {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     background-color: #EADBC8;
-    border-radius: 10px; 
+    border-radius: 6px; 
 
-    .title1{
-         margin: 30px;
+    .title1 {
+        margin: 30px;
+        font-size: 28px; /* Adjusted for better visibility */
+        font-weight: bold; /* Added for emphasis */
     }
-    .achieContainer1{
-        flex-wrap: nowrap;
+
+    .achieContainer1 {
+        display: flex;
+        flex-direction: column; /* Ensure proper stacking */
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: rgba(0, 0, 0, 0.111) #11111100;
         width: 100%;
-        .achieContainer2{
+        padding: 10px; /* Added padding for internal spacing */
+
+        .achieContainer2 {
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* Center align items vertically */
             width: 100%;
-            padding-left: 20px;
-            padding-bottom: 10px;
-            
-            .img{
+            padding: 10px 20px; /* Adjusted padding for better spacing */
+
+            .img {
                 width: 70px;
                 height: 70px;
+                border-radius: 50%; /* Added for circular images */
+                object-fit: cover; /* Ensure images fit well */
             }
-            .titleAndDesc{
+
+            .titleAndDesc {
                 display: flex;
                 flex-direction: column;
-                height: 70px;
                 justify-content: center;
                 gap: 5px;
-                .title{
+                margin-left: 15px; /* Added margin for spacing between image and text */
+
+                .title {
                     font-size: 24px;
+                    font-weight: bold; /* Added for emphasis */
                 }
-                .title2{
-                    
+                .title2 {
+                    font-size: 18px; /* Adjusted size for secondary text */
+                    color: #333; /* Added color for better readability */
                 }
             }
         }
     }
 }
 
-.Online{
+.Online {
     display: flex;
     align-items: center;
-    .image{
+    gap: 10px; /* Added gap for better spacing between items */
+    padding: 10px; /* Added padding for internal spacing */
+
+    .image {
         border-radius: 50%;
-        margin: 7px;
+        width: 50px; /* Adjusted size for consistency */
+        height: 50px;
+        object-fit: cover; /* Ensure image fits well */
     }
-    &:hover{
-        background-color: #102c5724;
+
+    &:hover {
+        background-color: rgba(16, 44, 87, 0.1); /* Lightened hover background */
+        border-radius: 6px; /* Added border-radius for rounded corners */
+        transition: background-color 0.3s ease; /* Smooth transition effect */
     }
 }

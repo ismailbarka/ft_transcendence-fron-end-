@@ -4,7 +4,9 @@ import Image from 'next/image';
 import avatar from '../../../public/chat/avatar.png'
 import ProgressBar from '@/Components/ProgressBar/ProgressBar';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import loadMyData from '@/Components/LoadMyData';
+import { UserContext } from '@/app/context/UserContext';
 
 
 const data = [
@@ -33,7 +35,21 @@ const data = [
 
 const LeaderBoard: React.FC = () => {
 
-
+    const {UserData, updateUserData, updateCurrentPage } = useContext(UserContext);
+    const router = useRouter();
+    useEffect(() => {
+      updateCurrentPage("LeaderBoard");
+  
+      const fetchData = async () => {
+        if (!UserData.username) {
+          const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+          if(res !== 0)
+            router.push("/login");
+        }
+      };
+  
+      fetchData();
+    }, []);
 
     const ProgBar = () =>{
         return <div className={classes.progBar}>

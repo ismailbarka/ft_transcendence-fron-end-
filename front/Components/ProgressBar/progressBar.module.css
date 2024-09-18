@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     background-color: #EADBC8;
-    border-radius: 10px;
+    border-radius: 5px;
     position:relative;
     
     .textContainer{
@@ -23,7 +23,7 @@
         height: 100%;
         background-color: #102C57;
         width: 75%;
-        border-radius: 10px;
+        border-radius: 5px;
     }
 
 }

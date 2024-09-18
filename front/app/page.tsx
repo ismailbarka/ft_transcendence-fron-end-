@@ -1,9 +1,15 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { useContext, useEffect } from "react";
+import loadMyData from "@/Components/LoadMyData";
+import { UserContext } from "./context/UserContext";
 
 export default function Home() {
+
+  const {updateUserData} = useContext(UserContext);
+
+
+
   return (
-    <main className={styles.main}>
+    <main>
      
     </main>
   );

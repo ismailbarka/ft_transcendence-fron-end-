@@ -3,7 +3,7 @@
     flex-direction: column;
     background-color: #EADBC8;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
 
     .buttons{
         display: flex;
@@ -16,7 +16,7 @@
             border:none;
             background-color: #DAC0A3;
             color: #102C57;
-            border-radius: 10px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 22px;
         }
@@ -26,7 +26,7 @@
             border:none;
             background-color: #102C57;
             color: #ffffff;
-            border-radius: 10px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 22px;
         }

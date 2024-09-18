@@ -1,35 +1,50 @@
-"use client"
+"use client";
 import Link from 'next/link';
-import classes from './Logout.module.css'
+import classes from './Logout.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import loadMyData from '@/Components/LoadMyData';
+import { UserContext } from '@/app/context/UserContext';
 
 const Logout: React.FC = () => {
   const router = useRouter();
-  const handleLogout = async () =>{
+  const { UserData, updateUserData,updateCurrentPage } = useContext(UserContext);
 
+  useEffect(() => {
+    updateCurrentPage("Logout");
 
+    const fetchData = async () => {
+      if (!UserData.username) {
+        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
+        if(res !== 0)
+          router.push("/login");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/token/blacklist/",{
-        "refresh" : localStorage.getItem("refresh")
-      })
+      const res = await axios.post("http://localhost:8000/api/auth/token/blacklist/", {
+        refresh: localStorage.getItem("refresh"),
+      });
       localStorage.removeItem("refresh");
       localStorage.removeItem("access");
     } catch (err) {
-      console.log(err);
-      
-    }finally{
+      console.error("Error during logout:", err);
+    } finally {
       router.push("/login");
     }
-  }
+  };
 
   return (
     <div className={classes.logout}>
-      <h1>logout ?</h1>
+      <h1>Logout?</h1>
       <div className={classes.yesOrNo}>
         <Link href="/user/home" className={classes.buttonNo}>No</Link>
-        <Link onClick={handleLogout} href="/login" className={classes.buttonYes}>Yes</Link>
+        <Link href="#" onClick={handleLogout} className={classes.buttonYes}>Yes</Link>
       </div>
     </div>
   );

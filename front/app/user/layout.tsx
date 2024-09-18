@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 // export default layout
 import type { Metadata } from "next";
+import loadMyData from '@/Components/LoadMyData'
 
 export const metadata: Metadata = {
   title: "Create Next App",

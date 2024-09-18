@@ -1,130 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap');
 
 .Container {
     display: flex;
     flex: 1;
-    .loginInput {
-        flex: 1;
-        height: 100vh;
-        overflow-y: scroll;
-        r: #F8F0E5;
+}
+
+.loginInput {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #F8F0E5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+
+    /* Scrollbar styling for WebKit browsers (Chrome, Safari) */
+    &::-webkit-scrollbar {
+        width: 8px; /* Width of the scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+        background: #F8F0E5; /* Background of the scrollbar track */
+        border-radius: 6px; /* Rounded corners for the track */
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #C1BBBB; /* Color of the scrollbar thumb */
+        border-radius: 6px; /* Rounded corners for the thumb */
+        transition: background-color 0.5s ease; /* Transition for hover */
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #AFAFAF; /* Hover state for the thumb */
+    }
+
+    /* Scrollbar styling for Firefox */
+    scrollbar-width: thin; /* Width of the scrollbar (auto, thin, none) */
+    scrollbar-color: #C1BBBB #F8F0E5; /* Thumb color, track color */
+
+    @media screen and (max-width: 1080px) {
+        align-items: center;
+    }
+
+    .title {
+        margin-bottom: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        font-size: 32px;
+        color: #333;
+        text-align: center;
+    }
+
+    .desc {
+        margin-bottom: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 24px;
+        color: #555;
+        text-align: center;
+    }
+
+    .welcomeMsg {
+        color: #666;
+        margin-bottom: 30px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+    }
+
+    .form {
         display: flex;
         flex-direction: column;
         align-items: center;
-        @media screen and (max-width: 1080px) {
-            align-items: center;
+        width: 100%;
+        max-width: 450px;
+        gap: 20px;
+
+        @media screen and (max-width: 600px) {
+            width: 90%;
         }
 
-        padding: 86px;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 600;
+        .input {
+            background-color: #f9f9f9;
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            transition: transform 0.5s ease; 
+            
+            &::placeholder {
+                color: #888;
+            }
+            &:focus {
+                transform: scale(1.025);
+            }
+            &:hover {
+                transform: scale(1.025);
+            }
+        }
 
-        .title {
-            margin-bottom: 109px;
+        .inputError {
+            background-color: rgba(247, 152, 152, 0.2);
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #333;
             font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-            font-size: 30px;
-        }
-        .desc {
-            margin-bottom: 28px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-            font-size: 36px;
-            @media screen and (max-width: 1080px) {
-                text-align: center;
+            transition: transform 0.5s ease; 
+            
+            &::placeholder {
+                color: #888;
             }
-        }
-        .welcomeMsg {
-            color: #0000005b;
-            margin-bottom: 40px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-        }
-        .form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 445px;
-            @media screen and (max-width: 600px) {
-                width: 90%;
+            &:focus {
+                transform: scale(1.025);
             }
-            font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-            .input {
-                background-color: #EADBC8;
-                width: 445px;
-                height: 75px;
-                border-radius: 20px; 
-                border: 1px solid #C1BBBB;
-                padding-left: 39px;
-                padding-right: 39px;
-                padding-top: 25px;
-                padding-bottom: 25px;
-                font-family: 'Roboto', sans-serif;
-                font-weight: 600;
-                font-size: 24px;
-                @media screen and (max-width: 600px) {
-                    width: 90%;
-                }  
-            }
-            .inputError {
-                background-color: rgba(247, 152, 152, 0.513);
-                width: 445px;
-                height: 75px;
-                border-radius: 20px; 
-                border: 1px solid #C1BBBB;
-                padding-left: 39px;
-                padding-right: 39px;
-                padding-top: 25px;
-                padding-bottom: 25px;
-                font-family: 'Roboto', sans-serif;
-                font-weight: 600;
-                font-size: 24px;
-                @media screen and (max-width: 600px) {
-                    width: 90%;
-                }  
-            }
-            .errorMsgContainer{
-                height: 56px;
-            }
-            .errorMsg{
-                margin: 10px;
-                color: rgb(247, 152, 152);
-            }
-            .button {
-                background-color: #DAC0A3;
-                width: 129px;
-                height: 54px;
-                margin-bottom: 28px;
-                border: none;
-                border-radius: 20px; 
-                border: 1px solid #C1BBBB;
-                font-family: 'Roboto', sans-serif;
-                font-weight: 600;
-                font-size: 24px;
-                cursor: pointer;
+            &:hover {
+                transform: scale(1.025);
             }
         }
-        .signUp{
-            color : 1900FF;
+
+        .errorMsgContainer {
+            height: 20px;
+        }
+
+        .errorMsg {
+            color: #d9534f;
+            font-size: 14px;
+            text-align: start;
+            width: 100%;
+        }
+
+        .button {
+            background-color: #5bc0de;
+            width: 100%;
+            max-width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.5s ease, transform 0.5s ease;
+
+            &:hover {
+                transform: scale(1.025);
+            }
+        }
+
+        .button:hover {
+            background-color: #31b0d5;
+        }
+
+        .button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
         }
     }
-    
-    .loginImage {
 
-        flex: 1;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        background-color: #DCCDAE;
-        @media screen and (max-width: 1080px) {
-            display: none;
-        }
-
-        .PlayerSigningInStyle{
-            width: 100%;
-            height: auto;
+    .signupP {
+        margin: 20px;
+        .signUp {
+            color: #1900FF;
+            font-weight: 600;
         }
     }
 }
 
+.loginImage {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DCCDAE;
+
+    @media screen and (max-width: 1080px) {
+        display: none;
+    }
+
+    .PlayerSigningInStyle {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+}

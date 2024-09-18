@@ -36,6 +36,30 @@
         width: 100%;
         border-radius: 6px;
 
+        .qrCode{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .toggleON{
+            width: 100px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .toggleOFF{
+            width: 100px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .togglePoint{
+            border-radius: 50%;
+        }
+
         .errors{
             text-align: center;
             color: red;

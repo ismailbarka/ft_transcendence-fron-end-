@@ -1,4 +1,4 @@
-.MessageNotif{
+.MessageNotif {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,36 +9,47 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-
 }
 
-.window{
+.window {
     width: 300px;
+    max-height: 400px;
+    overflow-y: auto; /* Changed to auto for better handling of content overflow */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
     padding: 10px;
-    max-height: 400px;
-    overflow-y: scroll;
-    border-radius: 10px;
+    border-radius: 6px;
     border: 1px solid black;
     background-color: #F8F0E5;
 
-    .element{
+    .element {
         display: flex;
+        align-items: center; /* Added to align avatar and text */
         gap: 10px;
         padding: 10px;
         width: 100%;
-        border-radius: 10px;
-        .avatar{
-            width: 50px;
-            height: 50px;
+        border-radius: 6px;
+        background-color: #FFF; /* Added a default background color */
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
+
+        .avatar {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            object-fit: cover; /* Ensure the image fits well */
+        }
+
+        /* Optional: Add some text styling */
+        .text {
+            font-size: 16px;
+            color: #333; /* Dark color for better readability */
         }
     }
-    .element:hover{
+
+    .element:hover {
         background-color: aquamarine;
     }
 }

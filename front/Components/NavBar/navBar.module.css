@@ -1,26 +1,27 @@
 .container {
     width: 100%;
-    padding: 20px;
-    @media screen and (max-width: 1000px) {
-        padding: 1vw;
-    }
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 4px 4px;
 
     .logo{
         display: flex;
         align-items: center;
+        width: 40px;
+        height: 40px;
 
         .logoImage {
-            width: 59px;
-            height: 86px;
+            width: 40px;
+            height: 40px;
             @media screen and (max-width: 1000px) {
-                width: 5vw;
-                height: auto;
+                width: 40px;
+                height: 40px;
             }
         }
         .title {
+            font-size: 1.125rem;
             margin: 10px;
             @media screen and (max-width: 1000px) {
                 display: none;
@@ -32,17 +33,17 @@
         position: relative;
 
         .input {
-            height: 56px;
-            margin: 10px;
+            font-size: 0.9375rem;
+            height: 40px;
             padding: 2.5px;
             padding-left: 53px;
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;
             width: 666px;
             background-color: #EADBC8;
             color: #102C57;
             @media screen and (max-width: 1000px) {
-                height: 30px;
+                height: 40px;
                 width: 50vw;
             }
         }
@@ -58,16 +59,15 @@
         display: flex;
         gap: 15px;
         align-items: center;
+        height: 40px;
         .icons{
             display: flex;
             gap: 15px;
+            padding: 10px;
+            
             .img{
-                width: 40px;
-                height: 40px;
-                @media screen and (max-width: 1000px) {
-                    width: 5vw;
-                    height: 5vw;
-                }
+                width: 30px;
+                height: 30px;
             }
         }
         .profile{
@@ -75,14 +75,10 @@
             gap: 15px;
             align-items: center;
             .profileImage{
-                width: 66px;
-                height: 66px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 border: 1px solid #102C57;
-                @media screen and (max-width: 1000px) {
-                    width: 5vw;
-                    height: 5vw;
-                }
             }
         }
 

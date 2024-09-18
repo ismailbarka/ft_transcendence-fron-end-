@@ -16,7 +16,7 @@ import { useContext } from "react";
 const NavBar = () => {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);  // State to control when the component is loaded
-  const {UserData} = useContext(UserContext);
+  const {UserData, updateUserData} = useContext(UserContext);
 
   useEffect(() => {
     console.log(UserData);

@@ -1,5 +1,5 @@
-"use client"
-import React, { useContext, useEffect, useState } from 'react';
+"use client";
+import React, { useContext, useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import classes from './page.module.css';
 import playerSigningInImage from "../../public/image 1.png";
 import Image from 'next/image';
@@ -8,22 +8,38 @@ import { z } from 'zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { UserContext } from '../context/UserContext';
+import VerifyCode from '@/Components/Login/VerifyCode';
 
+// Define the schema for validation using Zod
 const schema = z.object({
   username: z.string(),
-  password: z.string()
+  password: z.string(),
 });
 
-const Login = () => {
+// Define the shape of the error state
+interface Errors {
+  username: string;
+  password: string;
+  detail: string;
+  otp_code: string;
+}
 
-  const {updateUserData} = useContext(UserContext);
-
-  const [loaded, setLoaded] = useState(false);
+// Define the component
+const Login: React.FC = () => {
+  const { updateUserData } = useContext(UserContext);
   const router = useRouter();
-  const [isloading, setIsloading] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ username: "", password: "", detail: "" });
+  
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [isloading, setIsloading] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [code, setCode] = useState<string>("");
+  const [errors, setErrors] = useState<Errors>({
+    username: "",
+    password: "",
+    detail: "",
+    otp_code: ""
+  });
 
   useEffect(() => {
     const access = localStorage.getItem("access");
@@ -34,108 +50,107 @@ const Login = () => {
     }
   }, [router]);
 
-  const setUserInfos = async (access) => {
-    console.log(`Bearer ${access}`);
-    
+  const setUserInfos = async (access: string) => {
     try {
       const res = await axios.get("http://localhost:8000/api/users/me/", {
-        headers: {
-          Authorization: `Bearer ${access}`, 
-        },
+        headers: { Authorization: `Bearer ${access}` },
       });
-      console.log("Response data:", res.data.avatar); 
-      updateUserData({id: res.data.id, username: res.data.username ,avatar: res.data.avatar ,first_name: res.data.first_name, last_name: res.data.last_name})
-      console.log("Access token used:", access);
-    } catch (err) {
-      console.error("Error response:", err.response); 
-      setErrors({ ...errors, ...err.response?.data });
+      updateUserData({
+        id: res.data.id,
+        username: res.data.username,
+        avatar: res.data.avatar,
+        first_name: res.data.first_name,
+        last_name: res.data.last_name,
+      });
+    } catch (err: any) {
+      setErrors((prevErrors) => ({ ...prevErrors, ...err.response?.data }));
     }
   };
-  
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({ username: "", password: "", detail: "" });
+    setErrors({ username: "", password: "", detail: "", otp_code: "" });
     setIsloading(true);
-    const result = schema.safeParse({ username, password });
 
+    const result = schema.safeParse({ username, password });
     if (!result.success) {
       const errorMessages = result.error.flatten().fieldErrors;
-      setErrors({
+      setErrors((prevErrors) => ({
+        ...prevErrors,
         username: errorMessages.username ? errorMessages.username[0] : "",
         password: errorMessages.password ? errorMessages.password[0] : "",
-        detail: errors.detail
-      });
+      }));
       setIsloading(false);
       return;
     }
 
     try {
       const res = await axios.post("http://localhost:8000/api/auth/token/", {
-        username: username,
-        password: password
+        username,
+        password,
       });
       localStorage.setItem("refresh", res.data.refresh);
       localStorage.setItem("access", res.data.access);
+<<<<<<< HEAD
       localStorage.setItem("username", res.data.username);
       localStorage.setItem("id", res.data.id);
       
       setUserInfos(res.data.access)
+=======
+      await setUserInfos(res.data.access);
+>>>>>>> main
       router.push("/user/home");
-    } catch (err) {
-      setErrors({ ...errors, ...err.response.data });
+    } catch (err: any) {
+      setErrors((prevErrors) => ({ ...prevErrors, ...err.response.data }));
+      if (err.response.data.otp_code) {
+        setErrors((prevErrors) => ({ ...prevErrors, otp_code: err.response.data.otp_code[0] }));
+      }
     } finally {
       setIsloading(false);
     }
   };
 
-  return (
-    loaded ? (
-      <div className={classes.Container}>
-        <div className={classes.loginInput}>
-          <h1 className={classes.title}>Login</h1>
-          <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
-          <p className={classes.welcomeMsg}>Welcome back! Please login to your account.</p>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <>
-              <input
-                disabled={isloading}
-                className={errors["username"] ? classes.inputError : classes.input}
-                placeholder="username"
-                type="text"
-                onChange={(e) => { setUsername(e.target.value); setErrors({ ...errors, "username": "" }); }}
-              />
-              <div className={classes.errorMsgContainer}>
-                {errors["username"] && <p className={classes.errorMsg}>{errors["username"]}</p>}
-              </div>
-            </>
-            <>
-              <input
-                disabled={isloading}
-                className={errors["password"] ? classes.inputError : classes.input}
-                placeholder="password"
-                type="password"
-                onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, "password": "" }); }}
-              />
-              <div className={classes.errorMsgContainer}>
-                {errors["password"] && <p className={classes.errorMsg}>{errors["password"]}</p>}
-              </div>
-            </>
-            <div className={classes.errorMsgContainer}>
-              {errors["detail"] && <p className={classes.errorMsg}>{errors["detail"]}</p>}
-            </div>
-            <button disabled={isloading} className={classes.button} type='submit'>Login</button>
-          </form>
-          <p className={classes.welcomeMsg}>
-            If you don't have an account <Link href="/signup" className={classes.signUp}>SignUp</Link>
-          </p>
-        </div>
-        <div className={classes.loginImage}>
-          <Image src={playerSigningInImage} className={classes.PlayerSigningInStyle} alt="Player Signing In" />
-        </div>
+  return loaded ? (
+    <div className={classes.Container}>
+      <div className={classes.loginInput}>
+        <h1 className={classes.title}>Login</h1>
+        <h1 className={classes.desc}>Welcome to the Ping Pong World</h1>
+        <p className={classes.welcomeMsg}>Welcome back! Please login to your account.</p>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <input
+            disabled={isloading}
+            className={errors.username ? classes.inputError : classes.input}
+            placeholder="username"
+            type="text"
+            value={username}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value); setErrors({ ...errors, username: "", otp_code: "" }); }}
+          />
+          {errors.username && <p className={classes.errorMsg}>{errors.username}</p>}
+          <input
+            disabled={isloading}
+            className={errors.password ? classes.inputError : classes.input}
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value); setErrors({ ...errors, password: "", otp_code: "" }); }}
+          />
+          {errors.password && <p className={classes.errorMsg}>{errors.password}</p>}
+
+          {errors.detail && <p className={classes.errorMsg}>{errors.detail}</p>}
+          {errors.otp_code && <VerifyCode username={username} password={password} setErrors={setErrors} errors={errors} />}
+
+          <button disabled={isloading} className={classes.button} type="submit">Login</button>
+        </form>
+        <p className={classes.signupP}>
+          If you don't have an account <Link href="/signup" className={classes.signUp}>SignUp</Link>
+        </p>
+        <Link href="https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-fb265bee72601a74f4ca0873c11a8ed72d06d29a34720421809c6a29d940b430&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2F42&response_type=code">42</Link>
       </div>
-    ) : <div>Loading...</div>
-  );
-}
+      <div className={classes.loginImage}>
+        <Image src={playerSigningInImage} className={classes.PlayerSigningInStyle} alt="Player Signing In" />
+      </div>
+    </div>
+  ) : <div>Loading...</div>;
+};
 
 export default Login;
