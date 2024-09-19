@@ -139,7 +139,7 @@
             }
 
             .button {
-                background-color: #5bc0de;
+                background-color: #DAC0A3;
                 width: 100%;
                 max-width: 200px;
                 height: 40px;
@@ -154,19 +154,14 @@
 
                 &:hover {
                     transform: scale(1.025);
+                    background-color: #B18E67;
                 }
-                &:focus {
-                    transform: scale(1.025);
+
+                
+                &:disabled {
+                    background-color: #ddd;
+                    cursor: not-allowed;
                 }
-            }
-
-            .button:hover {
-                background-color: #31b0d5;
-            }
-
-            .button:disabled {
-                background-color: #ddd;
-                cursor: not-allowed;
             }
         }
 

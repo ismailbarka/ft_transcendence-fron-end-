@@ -8,7 +8,11 @@ import NextImage from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const ImageUpload = ({ setCurrentPage }) => {
+interface ImageUploadProps {
+  setCurrentPage: (page: string) => void;
+}
+
+const ImageUpload: React.FC<ImageUploadProps> = ({ setCurrentPage }) => {
   const { UserData, updateUserData } = useContext(UserContext);
   const [oldImage, setOldImage] = useState<string>("");
   const [newImage, setNewImage] = useState<string>("");
@@ -21,9 +25,12 @@ const ImageUpload = ({ setCurrentPage }) => {
       setIsLoading(true); 
       try {
         if (!UserData.first_name) {
-          const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
-          if(res !== 0)
-            router.push("/login");
+          const res = await loadMyData(
+            localStorage.getItem("access") || "",
+            localStorage.getItem("refresh") || "",
+            updateUserData
+          );
+          if (res !== 0) router.push("/login");
         }
         setOldImage(UserData.avatar);
       } catch (err) {
@@ -34,7 +41,7 @@ const ImageUpload = ({ setCurrentPage }) => {
     };
 
     fetchData();
-  }, []);
+  }, [UserData, updateUserData, router]);
 
   const validateImage = (file: File) => {
     const validTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -121,13 +128,10 @@ const ImageUpload = ({ setCurrentPage }) => {
       <div className={classes.window}>
         <div className={classes.element}>
           <label className={classes.label}>Change Profile Picture</label>
-          {/* {oldImage && (
-            <NextImage alt="Old Avatar" src={oldImage} width={100} height={100} />
-          )} */}
           {newImage ? (
             <NextImage className={classes.nextImage} alt="New Avatar" src={newImage} width={100} height={100} />
           ) : (
-            <NextImage className={classes.nextImage} alt="New Avatar" src={oldImage} width={100} height={100} />
+            <NextImage className={classes.nextImage} alt="Old Avatar" src={oldImage} width={100} height={100} />
           )}
           <input
             type="file"

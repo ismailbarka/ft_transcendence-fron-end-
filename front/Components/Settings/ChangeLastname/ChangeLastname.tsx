@@ -1,15 +1,23 @@
 "use client";
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect, useRef, ChangeEvent, MouseEvent } from 'react';
 import classes from './change.module.css';
 import axios from 'axios';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
 import { useRouter } from 'next/navigation';
 
-const ChangeLastname = ({ setCurrentPage }) => {
-  const [oldLastName, setOldLastName] = useState("");
-  const [newLastName, setNewLastName] = useState("");
-  const [error, setError] = useState([]);
+// Define the props type
+interface ChangeLastnameProps {
+  setCurrentPage: (page: string) => void;
+}
+
+// Define the state and error types
+type ErrorType = string[];
+
+const ChangeLastname: React.FC<ChangeLastnameProps> = ({ setCurrentPage }) => {
+  const [oldLastName, setOldLastName] = useState<string>("");
+  const [newLastName, setNewLastName] = useState<string>("");
+  const [error, setError] = useState<ErrorType>([]);
   const router = useRouter();
   const { UserData, updateUserData } = useContext(UserContext);
 
@@ -19,10 +27,10 @@ const ChangeLastname = ({ setCurrentPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.username) {
-        const res = await loadMyData(localStorage.getItem("access"), localStorage.getItem("refresh"), updateUserData);
+        const res = await loadMyData(localStorage.getItem("access") || "", localStorage.getItem("refresh") || "", updateUserData);
         if (res !== 0) router.push("/login");
       }
-      setOldLastName(UserData.last_name);
+      setOldLastName(UserData.last_name || "");
     };
 
     fetchData();
@@ -31,14 +39,15 @@ const ChangeLastname = ({ setCurrentPage }) => {
     if (newLastNameInputRef.current) {
       newLastNameInputRef.current.focus();
     }
-  }, []);
+  }, [UserData, updateUserData, router]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewLastName(e.target.value);
     setError([]);
   };
 
-  const handleChangeLastName = async () => {
+  const handleChangeLastName = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
       const res = await axios.patch(
         "http://localhost:8000/api/users/me/",
@@ -54,8 +63,8 @@ const ChangeLastname = ({ setCurrentPage }) => {
       );
       updateUserData({ ...UserData, last_name: newLastName });
       setCurrentPage("");
-    } catch (err) {
-      setError(err.response.data.last_name);
+    } catch (err: any) {
+      setError(err.response.data.last_name || []);
     }
   };
 

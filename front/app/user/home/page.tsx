@@ -12,21 +12,21 @@ import { UserContext } from '@/app/context/UserContext'
 import loadMyData from '@/Components/LoadMyData'
 const Home = () => {
   const {UserData, updateUserData, updateCurrentPage } = useContext(UserContext);
+  const [loaded, setLoaded] = useState(false);
   const router = useRouter();
   useEffect(() => {
     updateCurrentPage("Home");
 
     const fetchData = async () => {
-      if (!UserData.username) {
-        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
-        if(res !== 0)
+      if (!UserData.username)
           router.push("/login");
-      }
+        else
+          setLoaded(true);
     };
 
     fetchData();
   }, []);
-  return (
+  return loaded ?(
     <div className={classes.home}>
       <div className={classes.container}>
         <div className={classes.box1}><PlayerInfos/></div>
@@ -38,7 +38,7 @@ const Home = () => {
         <div className={classes.box6}>lin6</div>
       </div>
     </div>
-  )
+  ) : <div>loading</div>;
 }
 
 export default Home

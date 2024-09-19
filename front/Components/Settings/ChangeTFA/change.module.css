@@ -79,6 +79,10 @@
             width: 400px;
             font-size: 30px;
             background-color: #DAC0A3;
+            transition: background-color 0.5s ease, transform 0.5s ease;
+            &:focus {
+                transform: scale(1.025);;
+            }
         }
 
         .buttonContainer{
@@ -98,6 +102,11 @@
                 font-size: 30px;
                 background-color: #DAC0A3;
                 cursor: pointer;
+                transition: background-color 0.5s ease, transform 0.5s ease;
+                &:hover {
+                    transform: scale(1.025);
+                    background-color: #B18E67;
+                }
             }
         }
     }

@@ -124,11 +124,6 @@
                 transform: scale(1.025);
             }
         }
-
-        .errorMsgContainer {
-            height: 20px;
-        }
-
         .errorMsg {
             color: #d9534f;
             font-size: 14px;
@@ -137,7 +132,7 @@
         }
 
         .button {
-            background-color: #5bc0de;
+            background-color: #DAC0A3;
             width: 100%;
             max-width: 200px;
             height: 40px;
@@ -153,19 +148,19 @@
             &:hover {
                 transform: scale(1.025);
             }
-        }
-
-        .button:hover {
-            background-color: #31b0d5;
-        }
-
-        .button:disabled {
-            background-color: #ddd;
-            cursor: not-allowed;
+            
+            &:hover {
+                background-color: #B18E67;
+            }
+            
+            &:disabled {
+                background-color: #ddd;
+                cursor: not-allowed;
+            }
         }
     }
 
-    .signupP {
+    .signup {
         margin: 20px;
         .signUp {
             color: #1900FF;

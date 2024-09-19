@@ -1,23 +1,27 @@
 "use client";
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect, useRef, ChangeEvent } from 'react';
 import classes from './change.module.css';
 import axios from 'axios';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
 import { useRouter } from 'next/navigation';
 
-const ChangeFirstname = ({ setCurrentPage }) => {
-  const [oldFirstName, setOldFirstName] = useState("");
-  const [newFirstName, setNewFirstName] = useState("");
-  const [error, setError] = useState([]);
+interface ChangeFirstnameProps {
+  setCurrentPage: (page: string) => void;
+}
+
+const ChangeFirstname: React.FC<ChangeFirstnameProps> = ({ setCurrentPage }) => {
+  const [oldFirstName, setOldFirstName] = useState<string>("");
+  const [newFirstName, setNewFirstName] = useState<string>("");
+  const [error, setError] = useState<string[]>([]);
   const router = useRouter();
   const { UserData, updateUserData } = useContext(UserContext);
-  const inputRef = useRef(null); // Create a reference for the input field
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.username) {
-        const res = await loadMyData(localStorage.getItem("access"), localStorage.getItem("refresh"), updateUserData);
+        const res = await loadMyData(localStorage.getItem("access") || "", localStorage.getItem("refresh") || "", updateUserData);
         if (res === 0) {
           router.push("/login");
         }
@@ -26,15 +30,15 @@ const ChangeFirstname = ({ setCurrentPage }) => {
     };
 
     fetchData();
-  }, []);
+  }, [UserData, updateUserData, router]);
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus(); // Focus on the input field when the component is rendered
+      inputRef.current.focus();
     }
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewFirstName(e.target.value);
     setError([]);
   };
@@ -57,11 +61,12 @@ const ChangeFirstname = ({ setCurrentPage }) => {
       localStorage.setItem("first_name", newFirstName);
       updateUserData({ ...UserData, first_name: newFirstName });
       setCurrentPage("");
-    } catch (err) {
-      console.log(err.response.data.first_name);
-      setError(err.response.data.first_name);
+    } catch (err: any) {
+      if (err.response && err.response.data.first_name) {
+        setError(err.response.data.first_name);
+      }
     }
-  }
+  };
 
   return (
     <div className={classes.NotifNotif}>
@@ -70,7 +75,6 @@ const ChangeFirstname = ({ setCurrentPage }) => {
           <label className={classes.label}>Old FirstName:</label>
           <input disabled={true} className={classes.input} value={oldFirstName} />
           <label className={classes.label}>New FirstName:</label>
-          {/* Use the ref on the input field */}
           <input ref={inputRef} className={classes.input} value={newFirstName} onChange={handleInputChange} />
           {error.length > 0 && error.map((item, index) => <span className={classes.errors} key={index}>{item}</span>)}
           <div className={classes.buttonContainer}>

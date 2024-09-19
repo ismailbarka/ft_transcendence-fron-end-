@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, ChangeEvent, MouseEvent } from 'react';
 import classes from './change.module.css';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
@@ -8,25 +8,32 @@ import QRCode from 'react-qr-code';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const ChangeTFA = ({ setCurrentPage }) => {
+// Define the props type
+interface ChangeTFAProps {
+  setCurrentPage: (page: string) => void;
+}
+
+// Define the state and error types
+type ErrorType = string;
+
+const ChangeTFA: React.FC<ChangeTFAProps> = ({ setCurrentPage }) => {
   const { UserData, updateUserData } = useContext(UserContext);
-  const [toggled, setToggled] = useState(false);
-  const [otpUri, setOtpUri] = useState("");
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
+  const [toggled, setToggled] = useState<boolean>(false);
+  const [otpUri, setOtpUri] = useState<string>("");
+  const [code, setCode] = useState<string>("");
+  const [error, setError] = useState<ErrorType>("");
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       if (!UserData.last_name) {
-        const res = await loadMyData(localStorage.getItem("access"),localStorage.getItem("refresh"), updateUserData);
-        if(res !== 0)
-          router.push("/login");
+        const res = await loadMyData(localStorage.getItem("access") || "", localStorage.getItem("refresh") || "", updateUserData);
+        if (res !== 0) router.push("/login");
       }
     };
 
     fetchData();
-  }, [UserData.last_name, updateUserData]);
+  }, [UserData.last_name, updateUserData, router]);
 
   const enableTFA = async () => {
     try {
@@ -43,19 +50,21 @@ const ChangeTFA = ({ setCurrentPage }) => {
       console.log(res.data.otp_uri);
       setOtpUri(res.data.otp_uri);
       updateUserData({ ...UserData, TFA: true });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error enabling TFA:", err.response?.data || err.message);
     }
   };
 
-  const handleClickONOFFButton = () => {
+  const handleClickONOFFButton = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (!toggled) {
       enableTFA();
     }
     setToggled(!toggled);
   };
 
-  const handleDoneButton = async () => {
+  const handleDoneButton = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
       const res = await axios.post(
         "http://localhost:8000/api/auth/activate-2fa/",
@@ -70,10 +79,15 @@ const ChangeTFA = ({ setCurrentPage }) => {
       console.log(res.data);
       updateUserData({ ...UserData, TFA: true });
       setCurrentPage("");
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error activating TFA:", err.response?.data || err.message);
-      setError(err.response?.data?.non_field_errors[0] || "An error occurred");
+      setError(err.response?.data?.non_field_errors?.[0] || "An error occurred");
     }
+  };
+
+  const handleCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCode(e.target.value);
+    setError("");
   };
 
   return (
@@ -92,7 +106,8 @@ const ChangeTFA = ({ setCurrentPage }) => {
               <input
                 id="otp-code"
                 className={classes.input}
-                onChange={(e) => setCode(e.target.value)}
+                value={code}
+                onChange={handleCodeChange}
               />
               {error && <span className={classes.error}>{error}</span>}
             </div>

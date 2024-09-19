@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classes from './Menu.module.css';
 import Image from 'next/image';
 import homeImage from "../../public/homeIcon.svg";
@@ -11,6 +11,7 @@ import settingsImage from "../../public/settingsIcon.svg";
 import logoutImage from "../../public/logoutIcon.svg";
 import Link from 'next/link';
 import { UserContext } from '@/app/context/UserContext';
+import { useRouter } from 'next/navigation';
 
 interface Choice {
   name: string;
@@ -27,8 +28,29 @@ const choices: Choice[] = [
 ];
 
 const Menu: React.FC = () => {
-  const { currentPage,updateCurrentPage } = useContext(UserContext);
+  const {UserData, updateUserData, updateCurrentPage, currentPage} = useContext(UserContext);
   const [selectedPage, setSelectedPage] = useState<string>("Home");
+  const [loaded, setLoaded] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(UserData);
+     
+    const access = localStorage.getItem("access");
+    if (!access) {
+      router.push("/login");  // Redirect if access token is not available
+    } else {
+      setLoaded(true);  // Set loaded to true only if access token is present
+    }
+  }, [router]);
+
+  const [msgOpen, setMsgOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+
+  if (!loaded) {
+    return null;  // Return nothing until the component is loaded
+  }
 
   const handleClick = (name: string) => {
     updateCurrentPage(name);

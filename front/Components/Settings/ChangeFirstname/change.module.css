@@ -64,6 +64,10 @@
             background-color: transparent;
             border: 1px solid black;
             width: 100%;
+            transition: background-color 0.5s ease, transform 0.5s ease;
+            &:focus {
+                transform: scale(1.025);;
+            }
         }
 
         .buttonContainer{
@@ -85,6 +89,11 @@
                 padding: 20px;
                 background-color: #DAC0A3;
                 cursor: pointer;
+                transition: background-color 0.5s ease, transform 0.5s ease;
+                &:hover {
+                    transform: scale(1.025);
+                    background-color: #B18E67;
+                }
             }
         }
     }

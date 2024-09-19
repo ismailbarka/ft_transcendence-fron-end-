@@ -1,23 +1,38 @@
 "use client";
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef, ChangeEvent, MouseEvent } from 'react';
 import classes from './change.module.css';
 import axios from 'axios';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
 
-const ChangePassword = ({ setCurrentPage }) => {
-  const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState([]);
+// Define the props type
+interface ChangePasswordProps {
+  setCurrentPage: (page: string) => void;
+}
 
-  const {UserData, updateUserData} = useContext(UserContext);
+// Define the state and error types
+type ErrorType = string[];
 
-  const handleInputChange = (e) => {
+const ChangePassword: React.FC<ChangePasswordProps> = ({ setCurrentPage }) => {
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [error, setError] = useState<ErrorType>([]);
+  const newPasswordInputRef = useRef<HTMLInputElement>(null);
+
+  const { UserData, updateUserData } = useContext(UserContext);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
     setError([]);
   };
 
+  useEffect(() => {
+    if (newPasswordInputRef.current) {
+      newPasswordInputRef.current.focus();
+    }
+  }, []);
 
-  const handleChangePassword  = async() =>{
+  const handleChangePassword = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
       const res = await axios.patch(
         "http://localhost:8000/api/users/me/",
@@ -32,10 +47,10 @@ const ChangePassword = ({ setCurrentPage }) => {
         }
       );
       setCurrentPage("");
-    } catch (err) {
-      setError(err.response.data.password);
+    } catch (err: any) {
+      setError(err.response?.data?.password || []);
     }
-  }
+  };
 
   return (
     <div className={classes.NotifNotif}>
@@ -44,7 +59,7 @@ const ChangePassword = ({ setCurrentPage }) => {
           <label className={classes.label}>Old Password:</label>
           <input disabled={true} className={classes.input} value="******" />
           <label className={classes.label}>New Password:</label>
-          <input className={classes.input} value={newPassword} onChange={handleInputChange} />
+          <input ref={newPasswordInputRef} className={classes.input} value={newPassword} onChange={handleInputChange} />
           {error.length > 0 && error.map((item, index) => <span className={classes.errors} key={index}>{item}</span>)}
           <div className={classes.buttonContainer}>
             <button className={classes.button} onClick={handleChangePassword}>Update Infos</button>

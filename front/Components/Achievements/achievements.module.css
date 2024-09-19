@@ -1,57 +1,54 @@
-.Achivements{
+.achievements {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: #EADBC8;
-    border-radius: 5px; 
-
-    .title1{
-         margin: 30px;
-    }
-    .achieContainer1{
-        flex-wrap: nowrap;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(0, 0, 0, 0.111) #11111100;
-        width: 100%;
-        .achieContainer2{
-            display: flex;
-            align-items: start;
-            width: 100%;
-            padding-left: 20px;
-            padding-bottom: 10px;
-            
-            .img{
-                width: 70px;
-                height: 70px;
-            }
-            .titleAndDesc{
-                display: flex;
-                flex-direction: column;
-                height: 70px;
-                justify-content: center;
-                gap: 5px;
-                .title{
-                    font-size: 24px;
-                }
-                .title2{
-                    
-                }
-            }
-        }
-    }
-}
-
-.Online{
+    background-color: #eadbc8;
+    border-radius: 5px;
+  }
+  
+  .title {
+    margin: 30px;
+  }
+  
+  .achievementsContainer {
+    width: 100%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+  }
+  
+  .achievementItem {
     display: flex;
     align-items: center;
-    .image{
-        border-radius: 50%;
-        margin: 7px;
-    }
-    &:hover{
-        background-color: #102c5724;
-    }
-}
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .achievementItem:hover {
+    background-color: #102c5724;
+  }
+  
+  .image {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #333;
+  }
+  

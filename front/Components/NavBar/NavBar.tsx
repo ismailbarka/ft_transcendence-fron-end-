@@ -15,7 +15,7 @@ import { useContext } from "react";
 
 const NavBar = () => {
   const router = useRouter();
-  const [loaded, setLoaded] = useState(false);  // State to control when the component is loaded
+  const [loaded, setLoaded] = useState(false);
   const {UserData, updateUserData} = useContext(UserContext);
 
   useEffect(() => {
@@ -23,9 +23,9 @@ const NavBar = () => {
      
     const access = localStorage.getItem("access");
     if (!access) {
-      router.push("/login");  // Redirect if access token is not available
+      router.push("/login");
     } else {
-      setLoaded(true);  // Set loaded to true only if access token is present
+      setLoaded(true);
     }
   }, [router]);
 
@@ -33,10 +33,10 @@ const NavBar = () => {
   const [notifOpen, setNotifOpen] = useState(false);
 
   if (!loaded) {
-    return null;  // Return nothing until the component is loaded
+    return null;
   }
 
-  return (
+  return loaded ?  (
     <div className={classes.container}>
       <div className={classes.logo}>
         <Image src={mainLogo} alt='logo' className={classes.logoImage}/>
@@ -48,8 +48,6 @@ const NavBar = () => {
       </div>
       <div className={classes.profileAndIcons}>
         <div className={classes.icons}>  
-          <Image src={messagesImage} alt='messages' className={classes.img} onClick={() => setMsgOpen(!msgOpen)}/>
-          {msgOpen && <MessageNotif setMsgOpen={setMsgOpen}/>}
           <Image src={notificationsImage} alt='notifications' className={classes.img} onClick={() => setNotifOpen(!notifOpen)}/>
           {notifOpen && <NotifNotif setNotifOpen={setNotifOpen}/>}
         </div>
@@ -58,7 +56,7 @@ const NavBar = () => {
         </div>
       </div>
     </div>
-  );
+  ): <div>loading</div>;
 }
 
 export default NavBar;
