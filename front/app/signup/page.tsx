@@ -68,7 +68,7 @@ const Signup = () => {
         "first_name": first_name,
         "last_name": last_name,
         "password": password,
-        "avatar": "https://picsum.photos/1024/1024",
+        "avatar": "https://res.cloudinary.com/doufu6atn/image/upload/v1726742774/nxdrt0md7buyeghyjyvj.png",
         "email": email
       });
       console.log(res);

@@ -24,7 +24,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setCurrentPage }) => {
     const fetchData = async () => {
       setIsLoading(true); 
       try {
-        if (!UserData.first_name) {
+        if (!UserData.username) {
           const res = await loadMyData(
             localStorage.getItem("access") || "",
             localStorage.getItem("refresh") || "",

@@ -41,7 +41,7 @@ const Settings: React.FC = () => {
         <div className={classes.editContainer} onClick={() => setCurrentPage("avatar")}>
           <label className={classes.label} htmlFor="Avatar">Avatar:</label>
           <div className={classes.imageProvisoir} >
-            <Image alt='Avatar' src={UserData.avatar} width={100} height={100} className={classes.image}></Image>
+            <Image alt='Avatar' src={UserData.avatar ? UserData.avatar : "https://res.cloudinary.com/doufu6atn/image/upload/v1726742774/nxdrt0md7buyeghyjyvj.png"} width={100} height={100} className={classes.image}></Image>
           </div>
           <button className={classes.editButton}>Edit</button>
         </div>
