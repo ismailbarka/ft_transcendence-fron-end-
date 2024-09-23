@@ -54,7 +54,7 @@ const NavBar = () => {
           {notifOpen && <NotifNotif setNotifOpen={setNotifOpen}/>}
         </div>
         <div className={classes.profile}>
-          <Image src={UserData.avatar} alt='profile' className={classes.profileImage} width={100} height={100}/>
+          <Image src={UserData.avatar?"":"" } alt='profile' className={classes.profileImage} width={100} height={100}/>
         </div>
       </div>
     </div>

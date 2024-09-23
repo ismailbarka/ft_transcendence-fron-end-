@@ -91,14 +91,7 @@ const Login: React.FC = () => {
       });
       localStorage.setItem("refresh", res.data.refresh);
       localStorage.setItem("access", res.data.access);
-<<<<<<< HEAD
-      localStorage.setItem("username", res.data.username);
-      localStorage.setItem("id", res.data.id);
-      
-      setUserInfos(res.data.access)
-=======
       await setUserInfos(res.data.access);
->>>>>>> main
       router.push("/user/home");
     } catch (err: any) {
       setErrors((prevErrors) => ({ ...prevErrors, ...err.response.data }));

@@ -16,10 +16,6 @@ const loadMyData = async (access, refresh, updateUserData) => {
       const res = await axios.post("http://localhost:8000/api/auth/token/refresh/", {
         refresh: refresh,
       });
-      console.log("New Access Token: " + res.data.access);
-      console.log("New Refresh Token: " + res.data.refresh);
-
-
       localStorage.setItem("access", res.data.access);
       access = res.data.access;
     } catch (errone) {

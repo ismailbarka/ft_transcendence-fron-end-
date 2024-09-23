@@ -1,5 +1,5 @@
 "use client"
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts"
 import classes from './weeklyAttendance.module.css'
 
 const data = [
@@ -57,8 +57,6 @@ const WeeklyAttendance = () => {
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
                         <Tooltip />
                         <Bar dataKey="uv" fill="#102C57" />
                     </BarChart>

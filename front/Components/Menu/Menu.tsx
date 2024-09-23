@@ -1,73 +1,30 @@
 "use client"
-<<<<<<< HEAD
-import React, { useState } from 'react'
-import classes from './Menu.module.css'
-import Image from 'next/image'
-import homeImage from "../../public/homeIcon.svg"
-import chatImage from "../../public/chatIcon.svg"
-// import gameImage from "../../public/racketicon.svg"
-import friendsImage from "../../public/friendsIcon.svg"
-import placeImage from "../../public/placeIcon.svg"
-import settingsImage from "../../public/settingsIcon.svg"
-import logoutImage from "../../public/logoutIcon.svg"
-import Link from 'next/link'
-=======
 import React, { useContext, useState } from 'react';
 import classes from './Menu.module.css';
 import Image from 'next/image';
 import homeImage from "../../public/homeIcon.svg";
 import chatImage from "../../public/chatIcon.svg";
-import gameImage from "../../public/racketicon.svg";
+// import gameImage from "../../public/racketicon.svg";
 import friendsImage from "../../public/friendsIcon.svg";
 import placeImage from "../../public/placeIcon.svg";
 import settingsImage from "../../public/settingsIcon.svg";
 import logoutImage from "../../public/logoutIcon.svg";
 import Link from 'next/link';
 import { UserContext } from '@/app/context/UserContext';
->>>>>>> main
 
 interface Choice {
   name: string;
   imageUrl: string;
 }
 
-<<<<<<< HEAD
-const choices: Choice[] = [{
-  name : "Home",
-  imageUrl : homeImage
-},
-{
-  name : "Chat",
-  imageUrl : chatImage
-},
-// {
-//   name : "Game",
-//   imageUrl : gameImage
-// },
-{
-  name : "LeaderBoard",
-  imageUrl : placeImage
-},
-{
-  name : "Settings",
-  imageUrl : settingsImage
-},
-{
-  name : "Logout",
-  imageUrl : logoutImage
-}];
-
-
-=======
 const choices: Choice[] = [
   { name: "Home", imageUrl: homeImage },
   { name: "Chat", imageUrl: chatImage },
-  { name: "Game", imageUrl: gameImage },
+  // { name: "Game", imageUrl: gameImage },
   { name: "LeaderBoard", imageUrl: placeImage },
   { name: "Settings", imageUrl: settingsImage },
   { name: "Logout", imageUrl: logoutImage }
 ];
->>>>>>> main
 
 const Menu: React.FC = () => {
   const { currentPage,updateCurrentPage } = useContext(UserContext);

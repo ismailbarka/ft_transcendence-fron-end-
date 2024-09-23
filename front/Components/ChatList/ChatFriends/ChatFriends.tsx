@@ -23,7 +23,7 @@ const FriendField = ({ userName, AvatarImg, lastMsg, isSelected, onClick }) => {
   )
 }
 
-export const ChatFriends = ({onSelectFriend}) => {
+export const ChatFriends = ({userdata, onSelectFriend}) => {
   const [friends, setFriends] = useState([])
   const [addMode, setAddMode] = useState(false)
   const [selectedFriendId, setSelectedFriendId] = useState(null)
@@ -45,35 +45,39 @@ export const ChatFriends = ({onSelectFriend}) => {
       })
   }, [])
 
-  const handleFriendClick = (friendId) => {
-    setSelectedFriendId(friendId)
-    onSelectFriend(friendId)
+  const handleFriendClick = (userfriend) => {
+    setSelectedFriendId(userfriend)
+    onSelectFriend(userfriend)
   }
 
   return (
     <div className={classes.ChatFriends}>
       <div className={classes.search}>
-        <div className={classes.searchBar}>
-          <Image src={search} alt='' width={20} height={20}/>
-          <input type='text' placeholder='Search' className={classes.input} />
-        </div>
-        <Image alt='' src={addMode ? plus : minus} className={classes.add} width={36} height={36} onClick={() => setAddMode(!addMode)}/>
+        {/* ... search bar code ... */}
       </div>
-      {friends.map((friend, index) => {
-        if (index < 15) {
-          return (
-            <FriendField 
-              key={friend.user2.id} 
-              userName={friend.user2.username} 
-              AvatarImg={avatar} 
-              lastMsg={friend.user2.email}
-              isSelected={selectedFriendId === friend.id}
-              onClick={() => handleFriendClick(friend.id)}
-            />
-          )
-        }
-        return null;
-      })}
-    </div>
-  )
+      <div className={classes.friendsList}>
+        {friends.map((friend, index) => {
+          if (index < 5) {
+            return (
+              friend.userfriend.id!=userdata.UserData.id?<FriendField 
+                key={friend.userfriend.id} 
+                userName={friend.userfriend.username} 
+                AvatarImg={friend.userfriend.avatar?friend.userfriend.avatar:avatar} 
+                lastMsg={friend.userfriend.email}
+                isSelected={selectedFriendId === friend.userfriend}
+                onClick={() => handleFriendClick(friend.userfriend)}/>:
+                <FriendField 
+                key={friend.user1.id} 
+                userName={friend.user1.username} 
+                AvatarImg={friend.user1.avatar?friend.user1.avatar:avatar} 
+                lastMsg={friend.user1.email}
+                isSelected={selectedFriendId === friend.user1}
+                onClick={() => handleFriendClick(friend.user1)}
+                />
+            )
+          }
+          return null;
+        })}
+      </div>
+    </div>)
 }

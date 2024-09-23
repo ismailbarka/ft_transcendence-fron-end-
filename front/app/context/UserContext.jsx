@@ -13,13 +13,10 @@ export const UserContextProvider = ({ children }) => {
     first_name: "",
     last_name: "",
     password: "",
+    lastmessagesender: "",
     TFA: false,
   });
-  const [currentPage, setCurrentPage] = useState("");
-
-
-
-
+  const [currentPage, setCurrentPage] = useState("")
   const setUserInfos = async (access) => {
     try {
       const res = await axios.get("http://localhost:8000/api/users/me/", {
@@ -27,7 +24,7 @@ export const UserContextProvider = ({ children }) => {
           Authorization: `Bearer ${access}`, 
         },
       });
-      updateUserData({id: res.data.id, username: res.data.username ,avatar: res.data.avatar ,first_name: res.data.first_name, last_name: res.data.last_name})
+      updateUserData({id: res.data.id, username: res.data.username ,avatar: res.data.avatar ,first_name: res.data.first_name, last_name: res.data.last_name, lastmessagesender:res.data.lastmessagesender})
     } catch (err) {
       console.error("Error response:", err.response); 
     }

@@ -7,14 +7,12 @@
 }
 .container{
     display: flex;
-    flex: 1;
     overflow-y: hidden;
 }
 .nemu{
     display: flex;
-    width: fit-content;
     padding: 5px 10px;
-    @media screen and (max-width: 720px) {
+    @media screen and (max-width: 620px) {
         padding: 0px 0px;
     }
     border-right: 1px solid black ;
@@ -24,5 +22,4 @@
     display: flex;
     flex: 1;
     overflow-y: hidden;
-
 }

@@ -1,9 +1,6 @@
 .ChatDetails {
-    flex: 1;
-    background-color: #F8F0E5;
     overflow-y: auto; /* Changed to auto for better scrolling behavior */
     height: 100%;
-
     /* Scrollbar styling for WebKit browsers */
     &::-webkit-scrollbar {
         width: 8px; /* Width of the vertical scrollbar */
