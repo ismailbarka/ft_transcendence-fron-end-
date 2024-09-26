@@ -71,7 +71,6 @@ const Signup = () => {
         "avatar": "https://picsum.photos/1024/1024",
         "email": email
       });
-      console.log(res);
       router.push("/login");
     } catch (err) {
       console.log(err.response.data);

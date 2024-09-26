@@ -1,19 +1,17 @@
-"use client"
-import React, { useEffect, useRef, useState } from 'react'
-import classes from './chatField.module.css'
-import Image from 'next/image'
-import avatar from '../../public/chat/avatar.png'
-import emoji from '../../public/chat/emoji.png'
-import EmojiPicker from 'emoji-picker-react'
-import axios from 'axios'
-//import context 
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import EmojiPicker from 'emoji-picker-react';
+import axios from 'axios';
+import { useWebSocket } from '../../app/context/socketContext'; // Import the WebSocket hook
+import classes from './chatField.module.css';
+import avatar from '../../public/chat/avatar.png';
+import emoji from '../../public/chat/emoji.png';
 
-
-export const ChatField = ({userdata, friend }) => {
+export const ChatField = ({ userdata, friend }) => {
   const [messages, setMessages] = useState([]);
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
-  const [ws, setWs] = useState(null);
+  const { sendMessage, getConversation } = useWebSocket(); // Use the WebSocket hook
   const endRef = useRef(null);
 
   useEffect(() => {
@@ -29,12 +27,33 @@ export const ChatField = ({userdata, friend }) => {
     .catch((error) => {   
       console.log(error);
     });
-  },[friend, userdata]);
+  }, [friend, userdata]);
+
+  useEffect(() => {
+    // Update messages when the conversation changes
+    const conversation = getConversation(friend.id);
+    setMessages((prevMessages) => [...prevMessages, ...conversation]);
+  }, [friend.id, getConversation]);
+
+  useEffect(() => {
+    // Scroll to bottom when messages update
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
     setOpen(false);
   };
+
+  const handleSendMessage = () => {
+    if (text.trim()) {
+      sendMessage(friend.id, text);
+      setText("");
+      // Optionally, you can add the message to the local state immediately for a faster UI update
+      setMessages((prev) => [...prev, { sender: userdata.UserData.username, content: text, timestamp: new Date().toISOString() }]);
+    }
+  };
+
   return (
     <div className={classes.ChatField}>
       <div className={classes.top}>
@@ -49,10 +68,10 @@ export const ChatField = ({userdata, friend }) => {
       <div className={classes.center}>
         {messages.map((message, index) => (
           <div key={index} className={message.sender === userdata.UserData.username ? classes.message : classes.messageOwn}>
-            <Image alt='' src={message.sender.avatar} className={classes.messangerProfile} />
+            <Image alt='' src={message.sender.avatar || avatar} className={classes.messangerProfile} />
             <div className={classes.texts}>
               <p className={classes.pa}>{message.content}</p>
-              <span className={classes.date}>{message.timestamp}</span>
+              <span className={classes.date}>{new Date(message.timestamp).toLocaleString()}</span>
             </div>
           </div>
         ))}
@@ -65,6 +84,7 @@ export const ChatField = ({userdata, friend }) => {
           className={classes.msgInput}
           onChange={(e) => setText(e.target.value)}
           value={text}
+          onClick={(e) => e.key === 'Enter' && handleSendMessage()}
         />
         <div className={classes.emoji}>
           <Image alt='' src={emoji} className={classes.imagesButton} onClick={() => setOpen(!open)} />
@@ -72,7 +92,7 @@ export const ChatField = ({userdata, friend }) => {
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
           </div>
         </div>
-        <button  className={classes.sendButton}>Send</button>
+        <button className={classes.sendButton} onClick={handleSendMessage}>Send</button>
       </div>
     </div>
   );

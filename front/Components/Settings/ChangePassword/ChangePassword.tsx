@@ -39,7 +39,7 @@ const ChangePassword = ({ setCurrentPage }) => {
 
   return (
     <div className={classes.NotifNotif}>
-      <div className={classes.window} onClick={(e) => { e.preventDefault(); e.stopPropagation(); console.log("test") }}>
+      <div className={classes.window} onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
         <div className={classes.element}>
           <label className={classes.label}>Old Password:</label>
           <input disabled={true} className={classes.input} value="******" />

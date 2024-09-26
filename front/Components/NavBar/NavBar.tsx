@@ -19,7 +19,6 @@ const NavBar = () => {
   const {UserData, updateUserData} = useContext(UserContext);
 
   useEffect(() => {
-    console.log(UserData);
      
     const access = localStorage.getItem("access");
     if (!access) {

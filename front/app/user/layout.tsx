@@ -14,25 +14,21 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  children ,
 }: Readonly<{
-  children: React.ReactNode;
+  children : React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className={classes.main}>
-              <NavBar/>
-              <div className={classes.container}>
-                  <div className={classes.nemu}>
-                      <Menu/>
-                  </div>
-                  <div className={classes.Content}>
-                  {children}    
-                  </div>
+    <div className={classes.main}>
+          <NavBar/>
+          <div className={classes.container}>
+              <div className={classes.nemu}>
+                  <Menu/>
+              </div>
+              <div className={classes.Content}>
+              {children}    
               </div>
           </div>
-        </body>
-    </html>
+    </div>
   );
 }

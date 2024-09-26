@@ -65,7 +65,7 @@ const ChangeFirstname = ({ setCurrentPage }) => {
 
   return (
     <div className={classes.NotifNotif}>
-      <div className={classes.window} onClick={(e) => { e.preventDefault(); e.stopPropagation(); console.log("test") }}>
+      <div className={classes.window} onClick={(e) => { e.preventDefault(); e.stopPropagation();}}>
         <div className={classes.element}>
           <label className={classes.label}>Old FirstName:</label>
           <input disabled={true} className={classes.input} value={oldFirstName} />

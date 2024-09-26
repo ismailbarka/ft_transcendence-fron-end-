@@ -6,6 +6,7 @@ export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
+
   const [UserData, setUserData] = useState({
     id: null,
     username: "",
@@ -49,7 +50,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ UserData, updateUserData, currentPage, updateCurrentPage }}>
+    <UserContext.Provider value={{ UserData, updateUserData, currentPage, updateCurrentPage}}>
       {children}
     </UserContext.Provider>
   );

@@ -105,7 +105,6 @@ const ImageUpload = ({ setCurrentPage }) => {
           },
         }
       );
-      console.log(res.data);
       updateUserData({ ...UserData, avatar: newImage });
       setCurrentPage("");
     } catch (err) {

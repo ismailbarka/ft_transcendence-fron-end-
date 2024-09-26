@@ -38,7 +38,6 @@ export const ChatFriends = ({userdata, onSelectFriend}) => {
     )
       .then((response) => {
         setFriends(response.data)
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error)

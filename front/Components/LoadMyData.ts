@@ -3,13 +3,11 @@ import axios from "axios";
 
 const loadMyData = async (access, refresh, updateUserData) => {
   console.log(`Bearer ${access}`);
-  console.log("test");
 
   try {
     const res = await axios.post("http://localhost:8000/api/auth/token/verify/", {
       token: access,
     });
-    console.log(res.data);
   } catch (err) {
 
     try {

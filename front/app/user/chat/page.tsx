@@ -28,10 +28,10 @@ import {
 const Chat = () => {
   const [showDetails, setShowDetails] = useState(false);
   const router = useRouter();
-  const [ws, setWs] = useState(null);
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
+
   const [friend, onSelectFriend] = useState({
     TFA: false,
     avatar: "",
@@ -49,7 +49,7 @@ const Chat = () => {
     if (!access)
       router.push("/login");
   }, []);
-  return ( 
+  return (
     <div className={classes.body}>
       <div className = {classes.chat} >
       <div className = {classes.ChatList} ><ChatList userdata = {userData} onSelectFriend = {onSelectFriend}/> </div> 

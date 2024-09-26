@@ -8,7 +8,7 @@ const NotifNotif = ({setNotifOpen}) => {
 
   return (
     <div className={classes.NotifNotif} onClick={() => setNotifOpen(false)}>
-      <div className={classes.window} onClick={(e) => { e.preventDefault() ; e.stopPropagation(); console.log("test")}}>
+      <div className={classes.window} onClick={(e) => { e.preventDefault() ; e.stopPropagation();}}>
         <div className={classes.element}>
           <Image alt="" src={avatar} className={classes.avatar}/>
           <div>

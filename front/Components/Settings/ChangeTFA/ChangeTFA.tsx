@@ -40,7 +40,6 @@ const ChangeTFA = ({ setCurrentPage }) => {
           },
         }
       );
-      console.log(res.data.otp_uri);
       setOtpUri(res.data.otp_uri);
       updateUserData({ ...UserData, TFA: true });
     } catch (err) {
@@ -67,7 +66,6 @@ const ChangeTFA = ({ setCurrentPage }) => {
           },
         }
       );
-      console.log(res.data);
       updateUserData({ ...UserData, TFA: true });
       setCurrentPage("");
     } catch (err) {
