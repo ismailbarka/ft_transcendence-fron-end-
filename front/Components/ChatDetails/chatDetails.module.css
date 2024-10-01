@@ -1,21 +1,5 @@
 .ChatDetails {
-    overflow-y: auto; /* Changed to auto for better scrolling behavior */
-    height: 100%;
-    /* Scrollbar styling for WebKit browsers */
-    &::-webkit-scrollbar {
-        width: 8px; /* Width of the vertical scrollbar */
-    }
-    &::-webkit-scrollbar-track {
-        background: #F8F0E5; /* Background of the scrollbar track */
-        border-radius: 6px; /* Rounded corners for the track */
-    }
-    &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.3); /* Color of the scrollbar thumb */
-        border-radius: 6px; /* Rounded corners for the thumb */
-    }
-    &::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.5); /* Hover state for the thumb */
-    }
+    border-left: 1px solid #000;
 
     .users {
         padding: 30px;

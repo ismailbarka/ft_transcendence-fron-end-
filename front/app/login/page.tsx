@@ -8,6 +8,7 @@ import { z } from 'zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { UserContext } from '../context/UserContext';
+import { useWebSocket } from '../context/socketContext';
 import VerifyCode from '@/Components/Login/VerifyCode';
 
 // Define the schema for validation using Zod
@@ -27,6 +28,7 @@ interface Errors {
 // Define the component
 const Login: React.FC = () => {
   const { updateUserData } = useContext(UserContext);
+  const { connect, isconnected } = useWebSocket();
   const router = useRouter();
   
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -91,6 +93,7 @@ const Login: React.FC = () => {
       });
       localStorage.setItem("refresh", res.data.refresh);
       localStorage.setItem("access", res.data.access);
+      isconnected?connect(localStorage.getItem("access")):null;
       await setUserInfos(res.data.access);
       router.push("/user/home");
     } catch (err: any) {

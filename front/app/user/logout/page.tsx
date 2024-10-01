@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import loadMyData from '@/Components/LoadMyData';
 import { UserContext } from '@/app/context/UserContext';
+import {useWebSocket} from '@/app/context/socketContext';
 
 const Logout: React.FC = () => {
   const router = useRouter();
   const { UserData, updateUserData,updateCurrentPage } = useContext(UserContext);
+  const { disconnect, isconnected } = useWebSocket();
 
   useEffect(() => {
     updateCurrentPage("Logout");
@@ -32,6 +34,7 @@ const Logout: React.FC = () => {
       });
       localStorage.removeItem("refresh");
       localStorage.removeItem("access");
+      isconneted?disconnect():null;
     } catch (err) {
       console.error("Error during logout:", err);
     } finally {

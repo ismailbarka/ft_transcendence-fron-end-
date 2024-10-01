@@ -56,7 +56,7 @@ export const ChatFriends = ({userdata, onSelectFriend}) => {
       </div>
       <div className={classes.friendsList}>
         {friends.map((friend, index) => {
-          if (index < 5) {
+          if (index < 10) {
             return (
               friend.userfriend.id!=userdata.UserData.id?<FriendField 
                 key={friend.userfriend.id} 
