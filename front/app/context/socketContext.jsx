@@ -18,7 +18,8 @@ export const WebSocketProvider = ({ children }) => {
 
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      handleIncomingMessage(data);
+      console.log("data from the backend",data)
+      isConnected?handleIncomingMessage(data):console.warn('WebSocket Disconnected');
     };
 
     newSocket.onclose = () => {
@@ -63,7 +64,7 @@ export const WebSocketProvider = ({ children }) => {
   };
 
   const sendMessage = (message) => {
-    if (socket && isConnected) {
+    if (socket && isConnected && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(message));
     } else {
       console.error('WebSocket is not connected');
@@ -73,7 +74,8 @@ export const WebSocketProvider = ({ children }) => {
   const getConversation = (friendId) => {
     if (socket && isConnected) {
       sendMessage({
-        type: 'get_conversation',
+        type:"get_conversation",
+        message:"",
         friend_id: friendId
       });
     } else {
@@ -89,7 +91,7 @@ export const WebSocketProvider = ({ children }) => {
     sendMessage,
     getConversation,
     messages
-  };
+  };  
 
   return (
     <WebSocketContext.Provider value={value}>

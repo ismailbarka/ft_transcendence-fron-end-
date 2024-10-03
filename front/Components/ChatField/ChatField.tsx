@@ -14,8 +14,9 @@ export const ChatField = ({ userdata, friend }) => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const endRef = useRef(null);
-  const { socket, isconnected, connect, addMessageListener, getConversation } = useWebSocket();
+  const { socket, isConnected,isconnected, connect, getConversation } = useWebSocket();
   const token = localStorage.getItem('access');
+  console.log('conversations', getConversation(friend.id))
   useEffect(() => {
     axios.get(`http://localhost:8000/api/get_conversation/${userdata.UserData.id}/${friend.id}/`,
     { headers: { Authorization: `Bearer ${token}` }})
@@ -23,46 +24,16 @@ export const ChatField = ({ userdata, friend }) => {
       setMessages(response.data.messages);
     })
   },[friend.id]);
-  useEffect(() => {
-    if (!isconnected) {
-      connect(token);
-    }
-  }, [isconnected, token]);
+
   useEffect(() => {
     const handleNewMessage = (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     };
 
-    if (isconnected) {
-      const removeListener = addMessageListener(handleNewMessage);
-      return () => removeListener();
-    }
-  }, [isconnected, addMessageListener]);
+  }, [ ]);
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-  // testtinng **********************//
-
-
-
-  useEffect(() => {
-    console.log('isconnected', isconnected);
-    if (isconnected) {
-      socket.onmessage((event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === 'chat_message') {
-          setMessages((prevMessages) => [...prevMessages, data]);
-        }
-      });
-    
-    }
-
-  },[isconnected]);
-
-
-
-
-  // *******************************//
 
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
@@ -70,6 +41,7 @@ export const ChatField = ({ userdata, friend }) => {
   };
   const handleSendMessage = () => {
     if (text.trim()) {
+      console.log("isconnected 990 ->",isConnected)
       socket.send(JSON.stringify({ 
         type: 'chat_message',
         receiver_id: friend.id,
