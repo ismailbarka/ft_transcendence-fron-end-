@@ -1,109 +1,62 @@
+
 'use client'
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const WebSocketContext = createContext(null);
 
 export const WebSocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [messages, setMessages] = useState({});
+  const [messages, setMessages] = useState([]);
+  const [isConnected, setIsconnected] = useState(false);
 
-  const connect = (token) => {
+  useEffect(() => {
+    const token = localStorage.getItem('access')
     const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/?token=${token}`);
 
     newSocket.onopen = () => {
       console.log('WebSocket Connected');
-      setIsConnected(true);
+      setIsconnected(newSocket)
     };
 
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log("data from the backend",data)
-      isConnected?handleIncomingMessage(data):console.warn('WebSocket Disconnected');
+      receive_message(data);
     };
 
     newSocket.onclose = () => {
       console.log('WebSocket Disconnected');
-      setIsConnected(false);
     };
 
     setSocket(newSocket);
-  };
 
-  useEffect(() => {
-    let reconnectTimeout;
-  
-    const setupReconnect = () => {
-      if (!isConnected) {
-        reconnectTimeout = setTimeout(() => {
-          const token = localStorage.getItem('access');
-          if (token) connect(token);
-        }, 5000); // 7awel reconnection kol 5 secondes
-      }
-    };
-  
-    setupReconnect();
-  
     return () => {
-      if (reconnectTimeout) clearTimeout(reconnectTimeout);
+      newSocket.close();
     };
-  }, [isConnected]);
+  }, []);
 
-  const handleIncomingMessage = (data) => {
-    if (data.type === 'chat_message') {
-      setMessages(prevMessages => ({
-        ...prevMessages,
-        [data.sender_id]: [...(prevMessages[data.sender_id] || []), data]
-      }));
-    } else if (data.type === 'conversation_history') {
-      setMessages(prevMessages => ({
-        ...prevMessages,
-        [data.friend_id]: data.messages
-      }));
-    }
-  };
-
-  const sendMessage = (message) => {
-    if (socket && isConnected && socket.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify(message));
+  const sendMessage = (message, receiver_id) => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ 
+        type:"chat_message",
+        message:message, 
+        receiver_id:receiver_id }));
     } else {
       console.error('WebSocket is not connected');
     }
   };
-
-  const getConversation = (friendId) => {
-    if (socket && isConnected) {
-      sendMessage({
-        type:"get_conversation",
-        message:"",
-        friend_id: friendId
-      });
-    } else {
-      console.error('WebSocket is not connected');
-    }
-    return messages[friendId] || [];
+  const receive_message = (data) => {
+    setMessages(prevMessages => ({
+      ...prevMessages,
+      [data.sender_id]: [...(prevMessages[data.sender_id] || []), data]
+    }));
   };
-
-  const value = {
-    isConnected,
-    socket,
-    connect,
-    sendMessage,
-    getConversation,
-    messages
-  };  
-
   return (
-    <WebSocketContext.Provider value={value}>
+    <WebSocketContext.Provider value={{messages,sendMessage, setMessages }}>
       {children}
     </WebSocketContext.Provider>
   );
 };
 
 export const useWebSocket = () => {
-  const context = useContext(WebSocketContext);
-  if (!context) {
-    throw new Error('useWebSocket must be used within a WebSocketProvider');
-  }
-  return context;
+  return useContext(WebSocketContext);
 };
